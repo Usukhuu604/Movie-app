@@ -1,4 +1,3 @@
-import React from "react";
 import {
   Select,
   SelectContent,
@@ -7,16 +6,16 @@ import {
   SelectLabel,
   SelectTrigger,
   SelectValue,
-} from "@/components/ui/select";
-import { Button } from "./ui/button";
+} from "@/app/_components/ui/select";
+
 import { SearchMovies } from "./SearchMovies";
+import { PageTitleMovieZ } from "../common/PageTitleMovieZ";
+import { ThemeSwitcher } from "../common/ThemeSwitcher";
 
 export const HeaderContent = () => {
   return (
-    <div className="flex justify-around mt-[12px]">
-      <div>
-        <img src="MovieZLogo.png" alt="" />
-      </div>
+    <div className="flex justify-between mx-20 my-3">
+      <PageTitleMovieZ />
       <div className="flex">
         <Select>
           <SelectTrigger className="w-[180px]">
@@ -35,11 +34,7 @@ export const HeaderContent = () => {
         </Select>
         <SearchMovies />
       </div>
-      <div>
-        <Button className="border border-black rounded-[5px] ">
-          <img src="moon.svg" alt="" className="w-full" />
-        </Button>
-      </div>
+      <ThemeSwitcher />
     </div>
   );
 };

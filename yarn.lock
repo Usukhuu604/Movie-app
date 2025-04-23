@@ -494,6 +494,15 @@
   dependencies:
     "@radix-ui/react-compose-refs" "1.1.2"
 
+"@radix-ui/react-toggle@^1.1.6":
+  version "1.1.6"
+  resolved "https://registry.yarnpkg.com/@radix-ui/react-toggle/-/react-toggle-1.1.6.tgz#8d993d88d2abcd327fd18a6126adb2e6e0848a3c"
+  integrity sha512-3SeJxKeO3TO1zVw1Nl++Cp0krYk6zHDHMCUXXVkosIzl6Nxcvb07EerQpyD2wXQSJ5RZajrYAmPaydU8Hk1IyQ==
+  dependencies:
+    "@radix-ui/primitive" "1.1.2"
+    "@radix-ui/react-primitive" "2.1.0"
+    "@radix-ui/react-use-controllable-state" "1.2.2"
+
 "@radix-ui/react-use-callback-ref@1.1.1":
   version "1.1.1"
   resolved "https://registry.yarnpkg.com/@radix-ui/react-use-callback-ref/-/react-use-callback-ref-1.1.1.tgz#62a4dba8b3255fdc5cc7787faeac1c6e4cc58d40"

@@ -1,7 +1,7 @@
 import axios from "axios";
-import { FooterContent } from "@/components/FooterContent";
-import { HeaderContent } from "@/components/HeaderContent";
-import { MainPage } from "@/components/MainPage";
+import { FooterContent } from "@/app/_components/FooterContent";
+import { HeaderContent } from "@/app/_components/header/HeaderContent";
+import { MainPage } from "@/app/_components/MainPage";
 
 const testingArr = new Array(1000);
 const page = () => {

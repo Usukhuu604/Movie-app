@@ -1,14 +1,12 @@
 import React from "react";
 import { Mail, Phone, Film } from "lucide-react";
+import { PageTitleMovieZ } from "./common/PageTitleMovieZ";
 
 export const FooterContent = () => {
   return (
     <div className="grid grid-cols-4 gap-3 w-full text-center text-white bg-[#4338CA] relative bottom-0">
       <div className="col-start-1 ">
-        <div className="flex">
-          <Film />
-          <p className="text-pink font-[italic] ">Movie Z</p>
-        </div>
+        <PageTitleMovieZ />
         <p>© 2025 Movie Z. All rights reserved.</p>
       </div>
 
