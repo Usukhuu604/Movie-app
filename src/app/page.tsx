@@ -1,9 +1,10 @@
 import axios from "axios";
-import { FooterContent } from "@/app/_components/FooterContent";
+import { FooterContent } from "@/app/_components/footer/FooterContent";
 import { HeaderContent } from "@/app/_components/header/HeaderContent";
 import { MainPage } from "@/app/_components/MainPage";
 
-const testingArr = new Array(1000);
+import { FetchData } from "./_components/FetchData";
+
 const page = () => {
   // useEffect(() => {
   //     const movieApiKey = process.env.API_KEY;
@@ -27,7 +28,9 @@ const page = () => {
     <div className="h-screen">
       <HeaderContent />
       <MainPage />
-      <FooterContent />
+      <FetchData />
+
+      {/* <FooterContent /> */}
     </div>
   );
 };

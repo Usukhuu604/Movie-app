@@ -1,6 +1,6 @@
 import React from "react";
 import { Mail, Phone, Film } from "lucide-react";
-import { PageTitleMovieZ } from "./common/PageTitleMovieZ";
+import { PageTitleMovieZ } from "../common/PageTitleMovieZ";
 
 export const FooterContent = () => {
   return (
