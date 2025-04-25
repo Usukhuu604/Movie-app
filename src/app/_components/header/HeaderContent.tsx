@@ -1,3 +1,5 @@
+"use client";
+
 import { PageTitleMovieZ } from "../common/PageTitleMovieZ";
 import { ThemeSwitcher } from "../common/ThemeSwitcher";
 import { Genre } from "./Genre";
