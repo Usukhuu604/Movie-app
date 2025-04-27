@@ -10,6 +10,7 @@ export const HeaderContent = () => {
   return (
     <div className="flex justify-between mx-20 my-3">
       <PageTitleMovieZ />
+
       <div className="flex w-122 gap-x-4 ">
         <Genre />
         <SearchBarForHome />

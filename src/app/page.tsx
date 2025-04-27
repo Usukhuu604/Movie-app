@@ -1,25 +1,13 @@
-import axios from "axios";
-import { FooterContent } from "@/app/_components/footer/FooterContent";
-import { HeaderContent } from "@/app/_components/header/HeaderContent";
-import { MainPage } from "@/app/_components/MainPage";
+import { HeaderContent } from "./_components/header/HeaderContent";
+import { FooterContent } from "./_components/footer/FooterContent";
+import { MainPage } from "./_components/main/MainPage";
 
-import { axiosInstance } from "../lib/axios-instance";
-
-const getPopularMovies = async () => {
-  const { data } = await axiosInstance("/movie/popular?language=en-US&page=1");
-  return data;
-};
-
-const page = async () => {
-  const popular = await getPopularMovies();
-
-  console.log("dfbsgsvaf", popular);
-
+const page = () => {
   return (
     <div className="h-screen">
+      <HeaderContent />
       <MainPage />
-
-      {/* <FooterContent /> */}
+      <FooterContent />
     </div>
   );
 };
