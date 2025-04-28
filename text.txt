@@ -9,3 +9,22 @@ GET: /search/movie?query={search_value}&language=en-US&page=page∗Хайлты�
 GET: /movie/{id}/videos?language=en-US Тодорхой киноны трейлер, видео мэдээллийг авах.
 GET: /movie/id/credits?language=en−US∗Тухайнкиноныжүжигчидболонбагийнмэдээлэлавах.
 GET: /movie/{id}/similar?language=en-US Ижил төстэй кинонуудын жагсаалт авах.
+
+
+.scroll-bgimages {
+  scroll-snap-type: x mandatory;
+  flex-shrink: 0; 
+
+}
+.scroll-one {
+  scroll-snap-align: center; <--
+}
+
+.animation {
+
+  overflow-x: auto; <--
+
+}
+.footerItems {
+  flex-shrink: 0; <--
+}

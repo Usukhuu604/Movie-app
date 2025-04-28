@@ -1,6 +1,6 @@
 import React from "react";
 
-import { LeadingMovies } from "../LeadingMovies";
+import { LeadingMovies } from "./LeadingMovies";
 import { MoviesSection } from "./MoviesSection";
 
 const endpoints: string[] = [
@@ -19,8 +19,8 @@ const endpoints: string[] = [
 
 export const MainPage = () => {
   return (
-    <div>
-      <LeadingMovies />
+    <div className="grid gap-y-[52px]">
+      <LeadingMovies endpoint={endpoints[3]} />
       <MoviesSection label="Upcoming" endpoint={endpoints[1]} />
       <MoviesSection label="Popular" endpoint={endpoints[0]} />
       <MoviesSection label="Top Rated" endpoint={endpoints[2]} />
