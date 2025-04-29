@@ -1,13 +1,23 @@
 GET: /movie/popular?language=en-US&page=1 Алдартай кинонуудын жагсаалтыг авах.
+
 GET: /movie/upcoming?language=en-US&page=1 Удахгүй нээлтээ хийх кинонуудын жагсаалт авах.
+
 GET: /movie/top_rated?language=en-US&page=1 Өндөр үнэлгээтэй кинонуудын жагсаалт авах.
+
 GET: /movie/now_playing?language=en-US&page=1 Одоо кино театруудад гарч буй кинонуудын жагсаалт авах.
+
 GET: /movie/${movie_id}?language=en-US * Тодорхой киноны дэлгэрэнгүй мэдээллийг авах. 
+
 GET: /genre/movie/list?language=en * Киноны төрөл буюу жанрын жагсаалт авах. 
+
 GET: /discover/movie?language=en&with_genres=${genre_ids}&page=page∗Тухайнжанрынкинонуудыгшүүждуудахавах.
+
 GET: /search/movie?query={search_value}&language=en-US&page=page ∗Хайлтынутгадтохирохкинонуудынжагсаалтавах.
+
 GET: /movie/{id}/videos?language=en-US Тодорхой киноны трейлер, видео мэдээллийг авах.
+
 GET: /movie/id/credits?language=en−US∗Тухайнкиноныжүжигчидболонбагийнмэдээлэлавах.
+
 GET: /movie/{id}/similar?language=en-US Ижил төстэй кинонуудын жагсаалт авах.
 
 
