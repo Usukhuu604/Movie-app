@@ -5,26 +5,10 @@ GET: /movie/now_playing?language=en-US&page=1 Одоо кино театрууд
 GET: /movie/${movie_id}?language=en-US * Тодорхой киноны дэлгэрэнгүй мэдээллийг авах. 
 GET: /genre/movie/list?language=en * Киноны төрөл буюу жанрын жагсаалт авах. 
 GET: /discover/movie?language=en&with_genres=${genre_ids}&page=page∗Тухайнжанрынкинонуудыгшүүждуудахавах.
-GET: /search/movie?query={search_value}&language=en-US&page=page∗Хайлтынутгадтохирохкинонуудынжагсаалтавах.
+GET: /search/movie?query={search_value}&language=en-US&page=page ∗Хайлтынутгадтохирохкинонуудынжагсаалтавах.
 GET: /movie/{id}/videos?language=en-US Тодорхой киноны трейлер, видео мэдээллийг авах.
 GET: /movie/id/credits?language=en−US∗Тухайнкиноныжүжигчидболонбагийнмэдээлэлавах.
 GET: /movie/{id}/similar?language=en-US Ижил төстэй кинонуудын жагсаалт авах.
 
 
-.scroll-bgimages {
-  scroll-snap-type: x mandatory;
-  flex-shrink: 0; 
-
-}
-.scroll-one {
-  scroll-snap-align: center; <--
-}
-
-.animation {
-
-  overflow-x: auto; <--
-
-}
-.footerItems {
-  flex-shrink: 0; <--
-}
+skeleton scroll progress crousel
