@@ -1,6 +1,5 @@
 "use client";
 
-import React, { useState } from "react";
 import { useFetchClientData } from "@/app/_utils/_hooks/useFetchDataInClient";
 import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
@@ -11,7 +10,6 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from "@/components/ui/carousel";
-import { WatchTrailer } from "../common/WatchTrailer";
 
 type Props = {
   endpoint: string;
@@ -38,9 +36,8 @@ export const LeadingMovies = ({ endpoint }: Props) => {
       opts={{
         align: "start",
       }}
-      className="my-3 flex  overflow-x-scroll snap-x snap-mandatory relative"
+      className="my-3 flex  overflow-x-scroll snap-x snap-mandatory "
     >
-      <WatchTrailer />
       <CarouselContent>
         {!isLoading ? (
           data?.results.slice(0, 3).map((movie: Movie, index: number) => {

@@ -5,6 +5,7 @@ import { useFetchClientData } from "@/app/_utils/_hooks/useFetchDataInClient";
 import { Loader, ArrowRight } from "lucide-react";
 import { Skeleton } from "@/components/ui/skeleton";
 import { arrayBuffer } from "node:stream/consumers";
+import { useRouter } from "next/navigation";
 
 type Props = {
   label: string;
@@ -13,12 +14,18 @@ type Props = {
 
 export const MoviesSection = ({ label, endpoint }: Props) => {
   const { data, isLoading } = useFetchClientData(endpoint);
+  const { push } = useRouter();
 
   type Movie = {
     poster_path: string;
     title: string;
     id: string;
     vote_average: number;
+  };
+
+  const handleClickGotoDetail = (event: string) => {
+    console.log(event);
+    push("/detail");
   };
 
   return (
@@ -29,6 +36,7 @@ export const MoviesSection = ({ label, endpoint }: Props) => {
           See more <ArrowRight />
         </p>
       </div>
+
       <div className="grid grid-cols-5 grid-rows-2 gap-8">
         {!isLoading ? (
           data?.results.slice(0, 10).map((movie: Movie) => {
@@ -39,8 +47,9 @@ export const MoviesSection = ({ label, endpoint }: Props) => {
               <div
                 key={movie.id}
                 className="w-full h-auto bg-[#F4F4F5] rounded-lg text-[18px] "
+                onClick={handleClickGotoDetail}
               >
-                <img src={poster} alt="" className="" />
+                <img src={poster} alt="" />
                 <div className="w-full p-4 mb-5">
                   <p>⭐️{movie.vote_average.toFixed(1)}/10</p>
                   <p>{movie.title}</p>

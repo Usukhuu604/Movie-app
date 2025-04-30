@@ -4,7 +4,7 @@ import { PageTitleMovieZ } from "../common/PageTitleMovieZ";
 
 export const FooterContent = () => {
   return (
-    <div className="grid grid-cols-4 gap-3 w-full text-center text-white bg-[#4338CA] relative bottom-0 mt-12">
+    <div className="grid grid-cols-4 gap-3 w-full text-center text-white bg-[#4338CA] relative bottom-0 mt-12 h-auto">
       <div className="col-start-1 ">
         <PageTitleMovieZ />
         <p>© 2025 Movie Z. All rights reserved.</p>
