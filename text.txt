@@ -22,3 +22,4 @@ GET: /movie/{id}/similar?language=en-US Ижил төстэй кинонууды
 
 
 skeleton scroll progress crousel
+<Fragment> olon shirheg div butsaana

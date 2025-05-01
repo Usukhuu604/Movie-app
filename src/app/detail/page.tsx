@@ -1,11 +1,14 @@
-import React from "react";
 import { ShowFullDetailsOfSkeleton } from "./_components/show-full-details-of-skeleton/ShowFullDetailsOfSkeleton";
-const DetailPage = () => {
-  return (
-    <div>
-      <ShowFullDetailsOfSkeleton />
-    </div>
-  );
+import { ShowFullDetailsOfTheMovie } from "./_components/show-full-details-of-skeleton/ShowFullDetailsOfTheMovie";
+
+type DetailPageParams = {
+  params: {
+    movieId: string;
+  };
+};
+
+const DetailPage = ({ params: { movieId } }: DetailPageParams) => {
+  return <div>awef {movieId}</div>;
 };
 
 export default DetailPage;

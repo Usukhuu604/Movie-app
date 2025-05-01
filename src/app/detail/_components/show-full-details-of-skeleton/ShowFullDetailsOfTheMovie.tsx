@@ -1,5 +1,5 @@
 import React from "react";
 
-export const MovieFullPageDetails = () => {
+export const ShowFullDetailsOfTheMovie = () => {
   return <div></div>;
 };

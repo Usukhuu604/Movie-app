@@ -1,11 +1,9 @@
 "use client";
 
-import React from "react";
-import { useFetchClientData } from "@/app/_utils/_hooks/useFetchDataInClient";
+import { useRouter } from "next/navigation";
 import { Loader, ArrowRight } from "lucide-react";
 import { Skeleton } from "@/components/ui/skeleton";
-import { arrayBuffer } from "node:stream/consumers";
-import { useRouter } from "next/navigation";
+import { useFetchClientData } from "@/app/_utils/_hooks/useFetchDataInClient";
 
 type Props = {
   label: string;
@@ -15,6 +13,7 @@ type Props = {
 export const MoviesSection = ({ label, endpoint }: Props) => {
   const { data, isLoading } = useFetchClientData(endpoint);
   const { push } = useRouter();
+  // const { selectedGenresIds, generateQueryParams } = useURLsearchParams();
 
   type Movie = {
     poster_path: string;
@@ -23,10 +22,13 @@ export const MoviesSection = ({ label, endpoint }: Props) => {
     vote_average: number;
   };
 
-  const handleClickGotoDetail = (event: string) => {
-    console.log(event);
-    push("/detail");
+  const handleClickGotoDetail = (movieId: string) => () => {
+    push(`/detail/${movieId}`);
   };
+
+  const movies = data?.results ?? [];
+
+  if (isLoading) return <Loader />;
 
   return (
     <div className="h-auto px-20">
@@ -39,7 +41,7 @@ export const MoviesSection = ({ label, endpoint }: Props) => {
 
       <div className="grid grid-cols-5 grid-rows-2 gap-8">
         {!isLoading ? (
-          data?.results.slice(0, 10).map((movie: Movie) => {
+          movies.slice(0, 10).map((movie: Movie) => {
             let poster =
               "https://image.tmdb.org/t/p/original" + movie.poster_path;
 
@@ -47,7 +49,7 @@ export const MoviesSection = ({ label, endpoint }: Props) => {
               <div
                 key={movie.id}
                 className="w-full h-auto bg-[#F4F4F5] rounded-lg text-[18px] "
-                onClick={handleClickGotoDetail}
+                onClick={handleClickGotoDetail(movie.id)}
               >
                 <img src={poster} alt="" />
                 <div className="w-full p-4 mb-5">
