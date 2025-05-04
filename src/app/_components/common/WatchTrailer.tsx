@@ -1,6 +1,6 @@
 "use client";
 import React from "react";
-import { useFetchClientData } from "@/app/_utils/_hooks/useFetchDataInClient";
+import { useFetchClientData } from "@/app/_hooks/useFetchDataInClient";
 
 export const WatchTrailer = () => {
   const { data, isLoading } = useFetchClientData(

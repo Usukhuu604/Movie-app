@@ -11,7 +11,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { ChevronDown, ChevronRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { useFetchClientData } from "@/app/_utils/_hooks/useFetchDataInClient";
+import { useFetchClientData } from "@/app/_hooks/useFetchDataInClient";
 
 export const Genre = () => {
   const { data, isLoading } = useFetchClientData(

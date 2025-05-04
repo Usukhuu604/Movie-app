@@ -1,6 +1,6 @@
 "use client";
 
-import { useFetchClientData } from "@/app/_utils/_hooks/useFetchDataInClient";
+import { useFetchClientData } from "@/app/_hooks/useFetchDataInClient";
 import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
 import {

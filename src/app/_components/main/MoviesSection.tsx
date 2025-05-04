@@ -3,7 +3,7 @@
 import { useRouter } from "next/navigation";
 import { Loader, ArrowRight } from "lucide-react";
 import { Skeleton } from "@/components/ui/skeleton";
-import { useFetchClientData } from "@/app/_utils/_hooks/useFetchDataInClient";
+import { useFetchClientData } from "@/app/_hooks/useFetchDataInClient";
 
 type Props = {
   label: string;
@@ -13,7 +13,6 @@ type Props = {
 export const MoviesSection = ({ label, endpoint }: Props) => {
   const { data, isLoading } = useFetchClientData(endpoint);
   const { push } = useRouter();
-  // const { selectedGenresIds, generateQueryParams } = useURLsearchParams();
 
   type Movie = {
     poster_path: string;
@@ -25,8 +24,6 @@ export const MoviesSection = ({ label, endpoint }: Props) => {
   const handleClickGotoDetail = (movieId: string) => () => {
     push(`/detail/${movieId}`);
   };
-
-  const movies = data?.results ?? [];
 
   if (isLoading) return <Loader />;
 
@@ -41,9 +38,8 @@ export const MoviesSection = ({ label, endpoint }: Props) => {
 
       <div className="grid grid-cols-5 grid-rows-2 gap-8">
         {!isLoading ? (
-          movies.slice(0, 10).map((movie: Movie) => {
-            let poster =
-              "https://image.tmdb.org/t/p/original" + movie.poster_path;
+          data?.results?.slice(0, 10).map((movie: Movie) => {
+            let poster = "https://image.tmdb.org/t/p/original" + movie.poster_path;
 
             return (
               <div
@@ -61,10 +57,7 @@ export const MoviesSection = ({ label, endpoint }: Props) => {
           })
         ) : (
           <div className=" w-full h-auto flex items-center">
-            <Skeleton className="w-full h-full" />
-            {/* {Array(10).map((i) => {
-              return <Skeleton className="w-full h-full" />;
-            })} */}
+            <Skeleton className="w-full h-full" />{" "}
           </div>
         )}
       </div>
