@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { Play } from "lucide-react";
-import { Autour_One } from "next/font/google";
 
 type TrailerProps = {
   title: string;
@@ -16,7 +15,7 @@ export const WatchMovieTrailer = ({ poster_path, movieTrailerKey, title, backdro
   };
 
   return (
-    <div className="flex gap-8 h-[500px]  border w-full">
+    <div className="flex gap-8 h-[800px]  border w-full ">
       <img src={poster_path} alt="poster" className="block rounded-[4px]" />
 
       <div className="h-100% w-full relative">

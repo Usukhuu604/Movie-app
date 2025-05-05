@@ -1,4 +1,7 @@
+"use client";
+
 import { ShowFullDetailsOfSkeleton } from "../details-skeleton/ShowFullDetailsOfSkeleton";
+import { useRouter } from "next/navigation";
 
 type Movie = {
   poster_path: string | null;
@@ -13,8 +16,11 @@ type similarMovies = {
 };
 
 export const MoreLikeThis = ({ relatedMovies, isLoading }: similarMovies) => {
-  console.log("reaawef", relatedMovies);
+  const router = useRouter();
 
+  const handleClickgotoDetail = (movieId: string) => () => {
+    router.replace(`/detail/${movieId}`);
+  };
   return (
     <div className="grid grid-cols-5 grod-rows-4 gap-8">
       {!isLoading ? (
@@ -22,11 +28,7 @@ export const MoreLikeThis = ({ relatedMovies, isLoading }: similarMovies) => {
           let poster = movie.poster_path ? `https://image.tmdb.org/t/p/original${movie.poster_path}` : null;
 
           return (
-            <div
-              key={movie.id}
-              className="w-full h-auto bg-[#F4F4F5] rounded-lg text-[18px] "
-              //   onClick={handleClickGotoDetail(movie.id)}
-            >
+            <div key={movie.id} className="w-full h-auto bg-[#F4F4F5] rounded-lg text-[18px]" onClick={handleClickgotoDetail(movie.id)}>
               {poster && <img src={poster} alt="Movie Poster" />}
               <div className="w-full p-4 mb-5">
                 <p>⭐️{movie?.vote_average?.toFixed(1)}/10</p>

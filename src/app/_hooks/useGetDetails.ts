@@ -6,8 +6,6 @@ import { toHours } from "../_utils/toHours";
 export const useGetDetails = (endpoint: string) => {
   const { data, isLoading } = useFetchClientData(endpoint);
 
-  console.log(endpoint, data);
-
   return {
     title: data?.title,
     overview: data?.overview,

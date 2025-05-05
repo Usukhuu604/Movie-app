@@ -6,7 +6,7 @@ import { DetailTitle } from "./heading/DetailTitle";
 import { GiveGenres } from "./heading/GiveGenres";
 import { MovieOverview } from "./main/MovieOverview";
 import { MoreLikeThis } from "./footer/MoreLikeThis";
-import { FooterContent } from "@/app/_components/footer/FooterContent";
+import { ShowFullDetailsOfSkeleton } from "./details-skeleton/ShowFullDetailsOfSkeleton";
 
 type MovieId = {
   id: string;
@@ -17,6 +17,15 @@ export const FulldetailsPage = ({ id }: MovieId) => {
   const movieCredits = useGetDetails(`/movie/${id}/credits?language=en-US`);
   const getSimilarMovies = useGetDetails(`/movie/${id}/similar?language=en-US`);
   const movieTrailerDetail = useGetDetails(`/movie/${id}/videos?language=en-US`);
+  let pageIsLoading = moreDetail.isLoading && movieCredits.isLoading && getSimilarMovies.isLoading && movieTrailerDetail.isLoading;
+
+  if (pageIsLoading) {
+    return (
+      <div className="">
+        <ShowFullDetailsOfSkeleton />
+      </div>
+    );
+  }
 
   return (
     <div className="mx-50 my-20 ">
@@ -39,13 +48,17 @@ export const FulldetailsPage = ({ id }: MovieId) => {
       <GiveGenres genres={moreDetail.genres} />
 
       <MovieOverview
-        overview={moreDetail.overview}
         stars={movieCredits.stars}
-        directors={movieCredits.directing}
+        overview={moreDetail.overview}
         writing={movieCredits.writing}
+        directors={movieCredits.directing}
       />
 
-      <MoreLikeThis relatedMovies={getSimilarMovies.relatedMovies} isLoading={getSimilarMovies.isLoading} />
+      <MoreLikeThis
+        relatedMovies={getSimilarMovies.relatedMovies}
+        isLoading={getSimilarMovies.isLoading}
+        // useHandleGotoDetails={useHandleGotoDetails}
+      />
     </div>
   );
 };

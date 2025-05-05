@@ -4,6 +4,7 @@ import { useRouter } from "next/navigation";
 import { Loader, ArrowRight } from "lucide-react";
 import { Skeleton } from "@/components/ui/skeleton";
 import { useFetchClientData } from "@/app/_hooks/useFetchDataInClient";
+import { useHandleGotoDetails } from "@/app/_hooks/useHandleGotoDetails";
 
 type Props = {
   label: string;
@@ -25,6 +26,8 @@ export const MoviesSection = ({ label, endpoint }: Props) => {
     push(`/detail/${movieId}`);
   };
 
+  // const handleClickGotoDetail = useHandleGotoDetails;
+
   if (isLoading) return <Loader />;
 
   return (
@@ -42,11 +45,7 @@ export const MoviesSection = ({ label, endpoint }: Props) => {
             let poster = "https://image.tmdb.org/t/p/original" + movie.poster_path;
 
             return (
-              <div
-                key={movie.id}
-                className="w-full h-auto bg-[#F4F4F5] rounded-lg text-[18px] "
-                onClick={handleClickGotoDetail(movie.id)}
-              >
+              <div key={movie.id} className="w-full h-auto bg-[#F4F4F5] rounded-lg text-[18px] " onClick={handleClickGotoDetail(movie.id)}>
                 <img src={poster} alt="" />
                 <div className="w-full p-4 mb-5">
                   <p>⭐️{movie.vote_average.toFixed(1)}/10</p>

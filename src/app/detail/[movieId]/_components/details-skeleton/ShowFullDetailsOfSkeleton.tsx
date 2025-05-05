@@ -1,6 +1,5 @@
 import React from "react";
 import { Skeleton } from "@/components/ui/skeleton";
-import { FooterContent } from "@/app/_components/footer/FooterContent";
 
 export const ShowFullDetailsOfSkeleton = () => {
   return (
@@ -63,7 +62,6 @@ export const ShowFullDetailsOfSkeleton = () => {
           <Skeleton className=" h-93 bg-gray-300" />
         </div>
       </div>
-      <FooterContent />
     </div>
   );
 };

@@ -12,7 +12,7 @@ GET: /genre/movie/list?language=en * Киноны төрөл буюу жанры
 
 GET: /discover/movie?language=en&with_genres=${genre_ids}&page=page Тухайн жанрын кинонуудыг шүүж дуудах авах.
 
-GET: /search/movie?query={search_value}&language=en-US&page=page ∗Хайлтын утгад тохирох кинонуудын жагсаалт авах.
+GET: /search/movie?query=${searchValue}&language=en-US&page=${page} ∗Хайлтын утгад тохирох кинонуудын жагсаалт авах.
 
 GET: /movie/{id}/videos?language=en-US Тодорхой киноны трейлер, видео мэдээллийг авах.
 
