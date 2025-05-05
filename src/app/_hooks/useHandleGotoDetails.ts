@@ -2,7 +2,10 @@
 
 import { useRouter } from "next/navigation";
 
-export const useHandleGotoDetails = (id: string) => () => {
+export const useHandleGotoDetails = () => {
   const router = useRouter();
-  router.push(`/detail/${id}`);
+
+  return (id: string) => {
+    router.push(`/detail/${id}`);
+  };
 };

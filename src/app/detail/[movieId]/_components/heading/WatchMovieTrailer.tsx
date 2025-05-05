@@ -15,12 +15,12 @@ export const WatchMovieTrailer = ({ poster_path, movieTrailerKey, title, backdro
   };
 
   return (
-    <div className="flex gap-8 h-[800px]  border w-full ">
+    <div className="flex gap-8 h-[500px]  w-full ">
       <img src={poster_path} alt="poster" className="block rounded-[4px]" />
 
-      <div className="h-100% w-full relative">
+      <div className=" relative flex-1">
         {isPlaying ? (
-          <div className="rounded-[4px] w-full h-full">
+          <div className=" w-full h-full">
             <iframe
               width="100%"
               height="100%"
@@ -28,15 +28,16 @@ export const WatchMovieTrailer = ({ poster_path, movieTrailerKey, title, backdro
               title={title}
               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
               allowFullScreen
+              className="w-full h-full rounded-[4px]"
             ></iframe>
           </div>
         ) : (
-          <div onClick={handlePlay} className="cursor-pointer rounded-[4px] bg-black relative h-full w-full border ">
+          <div onClick={handlePlay} className="cursor-pointer rounded-[4px] bg-black relative h-full w-full  ">
             <img src={backdrop_path} alt="bakcdrop" className="opacity-50 h-full w-full" />
 
             <div className="absolute bottom-10 left-10 flex gap-4 text-4xl text-white flex-row items-center ">
               <p>Play Trailer</p>
-              <Play className="bg-white rounded-full text-black size-8 p-1" />
+              <Play className="bg-white rounded-full text-black text-2xl p-1" />
             </div>
           </div>
         )}
