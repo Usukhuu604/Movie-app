@@ -1,7 +1,9 @@
 "use client";
 
 import { ShowFullDetailsOfSkeleton } from "../details-skeleton/ShowFullDetailsOfSkeleton";
-import { useRouter } from "next/navigation";
+import { MoviePoster } from "@/app/_components/common/MoviePoster";
+import { ArrowRight } from "lucide-react";
+import { useNavigateMoreLikeThis } from "@/app/_hooks/useNavigateMoreLikeThis";
 
 type Movie = {
   poster_path: string | null;
@@ -16,30 +18,28 @@ type similarMovies = {
 };
 
 export const MoreLikeThis = ({ relatedMovies, isLoading }: similarMovies) => {
-  const router = useRouter();
-
-  const handleClickgotoDetail = (movieId: string) => () => {
-    router.replace(`/detail/${movieId}`);
-  };
+  const handleGotoMoreLikeThis = useNavigateMoreLikeThis();
   return (
-    <div className="grid grid-cols-5 grod-rows-4 gap-8">
-      {!isLoading ? (
-        relatedMovies?.map((movie: Movie) => {
-          let poster = movie.poster_path ? `https://image.tmdb.org/t/p/original${movie.poster_path}` : null;
+    <div>
+      <div className="flex justify-between items-center mb-8">
+        <p className="text-4xl font-bold">More like this</p>
+        <p className="flex text-lg text-gray-700 items-center gap-2 cursor-pointer" onClick={() => handleGotoMoreLikeThis(["a"])}>
+          See more <ArrowRight />
+        </p>
+      </div>
 
-          return (
-            <div key={movie.id} className="w-full h-auto bg-[#F4F4F5] rounded-lg text-[18px]" onClick={handleClickgotoDetail(movie.id)}>
-              {poster && <img src={poster} alt="Movie Poster" />}
-              <div className="w-full p-4 mb-5">
-                <p>⭐️{movie?.vote_average?.toFixed(1)}/10</p>
-                <p>{movie.title}</p>
-              </div>
-            </div>
-          );
-        })
-      ) : (
-        <ShowFullDetailsOfSkeleton />
-      )}
+      <div className="grid grid-cols-5 grod-rows-4 gap-8">
+        {!isLoading ? (
+          relatedMovies?.slice(0, 5).map((movie: Movie) => {
+            let poster = movie?.poster_path ? `https://image.tmdb.org/t/p/original${movie?.poster_path}` : null;
+            return (
+              <MoviePoster uniqueKey={movie.id} poster={poster} id={movie?.id} title={movie?.title} vote_average={movie?.vote_average} />
+            );
+          })
+        ) : (
+          <ShowFullDetailsOfSkeleton />
+        )}
+      </div>
     </div>
   );
 };

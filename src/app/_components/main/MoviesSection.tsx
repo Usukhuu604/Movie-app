@@ -1,10 +1,9 @@
 "use client";
 
-import { useRouter } from "next/navigation";
 import { Loader, ArrowRight } from "lucide-react";
 import { Skeleton } from "@/components/ui/skeleton";
+import { MoviePoster } from "../common/MoviePoster";
 import { useFetchClientData } from "@/app/_hooks/useFetchDataInClient";
-import { useHandleGotoDetails } from "@/app/_hooks/useHandleGotoDetails";
 
 type Props = {
   label: string;
@@ -13,7 +12,6 @@ type Props = {
 
 export const MoviesSection = ({ label, endpoint }: Props) => {
   const { data, isLoading } = useFetchClientData(endpoint);
-  const { push } = useRouter();
 
   type Movie = {
     poster_path: string;
@@ -21,12 +19,6 @@ export const MoviesSection = ({ label, endpoint }: Props) => {
     id: string;
     vote_average: number;
   };
-
-  const handleClickGotoDetail = (movieId: string) => () => {
-    push(`/detail/${movieId}`);
-  };
-
-  // const handleClickGotoDetail = useHandleGotoDetails;
 
   if (isLoading) return <Loader />;
 
@@ -43,20 +35,13 @@ export const MoviesSection = ({ label, endpoint }: Props) => {
         {!isLoading ? (
           data?.results?.slice(0, 10).map((movie: Movie) => {
             let poster = "https://image.tmdb.org/t/p/original" + movie.poster_path;
+            let key = movie?.id;
 
-            return (
-              <div key={movie.id} className="w-full h-auto bg-[#F4F4F5] rounded-lg text-[18px] " onClick={handleClickGotoDetail(movie.id)}>
-                <img src={poster} alt="" />
-                <div className="w-full p-4 mb-5">
-                  <p>⭐️{movie.vote_average.toFixed(1)}/10</p>
-                  <p>{movie.title}</p>
-                </div>
-              </div>
-            );
+            return <MoviePoster uniqueKey={key} poster={poster} id={movie.id} title={movie.title} vote_average={movie.vote_average} />;
           })
         ) : (
           <div className=" w-full h-auto flex items-center">
-            <Skeleton className="w-full h-full" />{" "}
+            <Skeleton className="w-full h-full" />
           </div>
         )}
       </div>

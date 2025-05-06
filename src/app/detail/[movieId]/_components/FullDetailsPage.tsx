@@ -1,11 +1,11 @@
 "use client";
 
-import { useGetDetails } from "@/app/_hooks/useGetDetails";
 import { WatchMovieTrailer } from "./heading/WatchMovieTrailer";
+import { useGetDetails } from "@/app/_hooks/useGetDetails";
 import { DetailTitle } from "./heading/DetailTitle";
 import { GiveGenres } from "./heading/GiveGenres";
-import { MovieOverview } from "./overview/MovieOverview";
 import { MoreLikeThis } from "./footer/MoreLikeThis";
+import { MovieOverview } from "./overview/MovieOverview";
 import { ShowFullDetailsOfSkeleton } from "./details-skeleton/ShowFullDetailsOfSkeleton";
 
 type MovieId = {
@@ -18,8 +18,7 @@ export const FulldetailsPage = ({ id }: MovieId) => {
   const getSimilarMovies = useGetDetails(`/movie/${id}/similar?language=en-US`);
   const movieTrailerDetail = useGetDetails(`/movie/${id}/videos?language=en-US`);
 
-  let pageIsLoading =
-    moreDetail.isLoading && movieCredits.isLoading && getSimilarMovies.isLoading && movieTrailerDetail.isLoading;
+  let pageIsLoading: boolean = moreDetail.isLoading && movieCredits.isLoading && getSimilarMovies.isLoading && movieTrailerDetail.isLoading;
 
   if (pageIsLoading) {
     return (
