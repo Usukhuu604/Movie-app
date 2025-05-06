@@ -26,7 +26,7 @@ export const MoviesSection = ({ label, endpoint }: Props) => {
     <div className="h-auto px-20">
       <div className="flex justify-between mb-8 ">
         <p className="text-3xl font-semibold">{label}</p>
-        <p className="w-[120px] flex justify-around items-center font-medium">
+        <p className="w-[120px] flex justify-around items-center font-medium bg-red-400">
           See more <ArrowRight />
         </p>
       </div>
@@ -37,7 +37,15 @@ export const MoviesSection = ({ label, endpoint }: Props) => {
             let poster = "https://image.tmdb.org/t/p/original" + movie.poster_path;
             let key = movie?.id;
 
-            return <MoviePoster uniqueKey={key} poster={poster} id={movie.id} title={movie.title} vote_average={movie.vote_average} />;
+            return (
+              <MoviePoster
+                key={key}
+                poster={poster}
+                id={movie.id}
+                title={movie.title}
+                vote_average={movie.vote_average}
+              />
+            );
           })
         ) : (
           <div className=" w-full h-auto flex items-center">

@@ -23,7 +23,10 @@ export const MoreLikeThis = ({ relatedMovies, isLoading }: similarMovies) => {
     <div>
       <div className="flex justify-between items-center mb-8">
         <p className="text-4xl font-bold">More like this</p>
-        <p className="flex text-lg text-gray-700 items-center gap-2 cursor-pointer" onClick={() => handleGotoMoreLikeThis(["a"])}>
+        <p
+          className="flex text-lg text-gray-700 items-center gap-2 cursor-pointer"
+          onClick={() => handleGotoMoreLikeThis(["a"])}
+        >
           See more <ArrowRight />
         </p>
       </div>
@@ -33,7 +36,13 @@ export const MoreLikeThis = ({ relatedMovies, isLoading }: similarMovies) => {
           relatedMovies?.slice(0, 5).map((movie: Movie) => {
             let poster = movie?.poster_path ? `https://image.tmdb.org/t/p/original${movie?.poster_path}` : null;
             return (
-              <MoviePoster uniqueKey={movie.id} poster={poster} id={movie?.id} title={movie?.title} vote_average={movie?.vote_average} />
+              <MoviePoster
+                key={movie?.id}
+                poster={poster}
+                id={movie?.id}
+                title={movie?.title}
+                vote_average={movie?.vote_average}
+              />
             );
           })
         ) : (

@@ -7,7 +7,9 @@ type DetailPageParams = {
   };
 };
 
-const DetailPage = ({ params: { movieId } }: DetailPageParams) => {
+const DetailPage = async ({ params }: DetailPageParams) => {
+  const { movieId } = await params;
+
   return (
     <div>
       <FulldetailsPage id={movieId} />

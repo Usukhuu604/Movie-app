@@ -15,7 +15,7 @@ export const WatchMovieTrailer = ({ poster_path, movieTrailerKey, title, backdro
   };
 
   return (
-    <div className="flex gap-8 h-[800px] w-full ">
+    <div className="flex gap-8 h-[800px] lg:h-[500px] w-full ">
       <img src={poster_path} alt="poster" className="rounded-2xl" />
 
       <div className=" relative flex-1 rounded-2xl">

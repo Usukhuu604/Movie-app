@@ -1,12 +1,14 @@
 import React from "react";
 import { ShowSearchResults } from "./components/ShowSearchResults";
 import { FooterContent } from "@/app/_components/footer/FooterContent";
+import { GenreSuggestions } from "./components/GenreSuggestions";
 
 type SearchProps = {
   params: { searchResult: string };
 };
 
-const SearchResultPage = ({ params: { searchResult } }: SearchProps) => {
+const SearchResultPage = async ({ params }: SearchProps) => {
+  const { searchResult } = await params;
   const endpoint: string = `/search/movie?query=${searchResult}&language=en-US&page=1`;
   return (
     <div>
@@ -15,7 +17,7 @@ const SearchResultPage = ({ params: { searchResult } }: SearchProps) => {
         <div className="flex h-full  gap-10">
           <ShowSearchResults endpoint={endpoint} />
           <div className="h-[auto] border border-gray-300 "></div>
-          <div className="w-[30%] h-[auto] bg-gray-500 border"></div>
+          <GenreSuggestions />
         </div>
       </div>
 

@@ -3,7 +3,9 @@ type MoreLikeProps = {
     moreLike: string;
   };
 };
-const MoreLikeThis = ({ params: { moreLike } }: MoreLikeProps) => {
+const MoreLikeThis = async ({ params }: MoreLikeProps) => {
+  const { moreLike } = await params;
+
   return <div>{moreLike}awefawefawef</div>;
 };
 

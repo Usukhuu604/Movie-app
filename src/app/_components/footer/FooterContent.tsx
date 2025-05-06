@@ -1,4 +1,3 @@
-import React from "react";
 import { Mail, Phone, Film } from "lucide-react";
 import { PageTitleMovieZ } from "../common/PageTitleMovieZ";
 
