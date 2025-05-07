@@ -16,9 +16,9 @@ GET: /movie/{id}/similar?language=en-US Ижил төстэй кинонууды
 moviesection seemore 
 theme
 leadingmovies
+input useRef
 genre search
 pages for mutliple movies
 multi-genre search
-footercontent
 morelikethis movies
-fix input
+footercontent always bottom layout

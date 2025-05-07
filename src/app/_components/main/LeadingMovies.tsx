@@ -3,13 +3,7 @@
 import { useFetchClientData } from "@/app/_hooks/useFetchDataInClient";
 import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
-import {
-  Carousel,
-  CarouselContent,
-  CarouselItem,
-  CarouselNext,
-  CarouselPrevious,
-} from "@/components/ui/carousel";
+import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@/components/ui/carousel";
 
 type Props = {
   endpoint: string;
@@ -41,18 +35,12 @@ export const LeadingMovies = ({ endpoint }: Props) => {
       <CarouselContent>
         {!isLoading ? (
           data?.results.slice(0, 3).map((movie: Movie, index: number) => {
-            let leadingMovie =
-              "https://image.tmdb.org/t/p/original" + movie.backdrop_path;
+            let leadingMovie = "https://image.tmdb.org/t/p/original" + movie.backdrop_path;
 
             return (
-              <CarouselItem
-                key={index}
-                className="w-screen h-175 shrink-0 snap-center"
-              >
+              <CarouselItem key={index} className="w-screen h-200 shrink-0 snap-center">
                 <div className="absolute text-white top-1/2 ml-20 transform -translate-y-1/2 w-100 h-66 z-10">
-                  {index !== 0 && (
-                    <CarouselPrevious className="bg-white text-black" />
-                  )}
+                  {index !== 0 && <CarouselPrevious className="bg-white text-black" />}
                   <p>Now Playing</p>
                   <p className="font-bold text-4xl">{movie.title}</p>
                   <p className="text-2xl font-semibold">
@@ -60,22 +48,12 @@ export const LeadingMovies = ({ endpoint }: Props) => {
                     <span className="text-gray-400">/10</span>
                   </p>
                   <p>{movie.overview}</p>
-                  <Button
-                    className="bg-white border-2 rounded-lg text-black"
-                    onClick={handleClick}
-                  >
+                  <Button className="bg-white border-2 rounded-lg text-black" onClick={handleClick}>
                     Watch Trailer
                   </Button>
-                  {index !== 2 && (
-                    <CarouselNext className="bg-white text-black" />
-                  )}
+                  {index !== 2 && <CarouselNext className="bg-white text-black" />}
                 </div>
-                <img
-                  src={leadingMovie}
-                  alt=""
-                  className="w-full h-175 bg-cover bg-center"
-                  key={movie.id}
-                />
+                <img src={leadingMovie} alt="" className="w-full h-200 bg-cover bg-center" key={movie.id} />
               </CarouselItem>
             );
           })

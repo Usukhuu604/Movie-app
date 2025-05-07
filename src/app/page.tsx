@@ -3,7 +3,7 @@ import { MainPage } from "./_components/main/MainPage";
 
 const page = () => {
   return (
-    <div className="h-screen">
+    <div className="">
       <MainPage />
       <FooterContent />
     </div>

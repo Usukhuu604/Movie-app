@@ -4,6 +4,7 @@ import { Loader, ArrowRight } from "lucide-react";
 import { Skeleton } from "@/components/ui/skeleton";
 import { MoviePoster } from "../common/MoviePoster";
 import { useFetchClientData } from "@/app/_hooks/useFetchDataInClient";
+import { useNavigateToPages } from "@/app/_hooks/useNavigateToPages";
 
 type Props = {
   label: string;
@@ -12,6 +13,8 @@ type Props = {
 
 export const MoviesSection = ({ label, endpoint }: Props) => {
   const { data, isLoading } = useFetchClientData(endpoint);
+
+  const handleNavigateToPages = useNavigateToPages();
 
   type Movie = {
     poster_path: string;
@@ -26,7 +29,10 @@ export const MoviesSection = ({ label, endpoint }: Props) => {
     <div className="h-auto px-20">
       <div className="flex justify-between mb-8 ">
         <p className="text-3xl font-semibold">{label}</p>
-        <p className="w-[120px] flex justify-around items-center font-medium bg-red-400">
+        <p
+          className="w-[120px] flex justify-around items-center font-medium bg-red-400 cursor-pointer"
+          onClick={() => handleNavigateToPages("see-more", "awef")}
+        >
           See more <ArrowRight />
         </p>
       </div>
@@ -37,15 +43,7 @@ export const MoviesSection = ({ label, endpoint }: Props) => {
             let poster = "https://image.tmdb.org/t/p/original" + movie.poster_path;
             let key = movie?.id;
 
-            return (
-              <MoviePoster
-                key={key}
-                poster={poster}
-                id={movie.id}
-                title={movie.title}
-                vote_average={movie.vote_average}
-              />
-            );
+            return <MoviePoster key={key} poster={poster} id={movie.id} title={movie.title} vote_average={movie.vote_average} />;
           })
         ) : (
           <div className=" w-full h-auto flex items-center">

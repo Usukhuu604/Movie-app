@@ -11,7 +11,7 @@ const SearchResultPage = async ({ params }: SearchProps) => {
   const { searchResult } = await params;
   const endpoint: string = `/search/movie?query=${searchResult}&language=en-US&page=1`;
   return (
-    <div>
+    <div className="">
       <div className="mx-40 my-10">
         <p className="font-bold text-3xl mb-5">Search results</p>
         <div className="flex h-full  gap-10">
