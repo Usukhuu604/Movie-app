@@ -11,7 +11,6 @@ type Props = {
 
 export const LeadingMovies = ({ endpoint }: Props) => {
   const { data, isLoading } = useFetchClientData(endpoint);
-  console.log(data);
 
   type Movie = {
     backdrop_path: string;

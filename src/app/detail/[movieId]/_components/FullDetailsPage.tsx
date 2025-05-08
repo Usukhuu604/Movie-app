@@ -55,7 +55,7 @@ export const FulldetailsPage = ({ id }: MovieId) => {
         directors={movieCredits.directing}
       />
 
-      <MoreLikeThis relatedMovies={getSimilarMovies.relatedMovies} isLoading={getSimilarMovies.isLoading} />
+      <MoreLikeThis relatedMovies={getSimilarMovies.relatedMovies} isLoading={getSimilarMovies.isLoading} movieId={id} />
     </div>
   );
 };

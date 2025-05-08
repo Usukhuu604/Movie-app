@@ -4,7 +4,8 @@ import { Loader, ArrowRight } from "lucide-react";
 import { Skeleton } from "@/components/ui/skeleton";
 import { MoviePoster } from "../common/MoviePoster";
 import { useFetchClientData } from "@/app/_hooks/useFetchDataInClient";
-import { useNavigateToPages } from "@/app/_hooks/useNavigateToPages";
+// import { useNavigateToPages } from "@/app/_hooks/useNavigateToPages";
+import { useNavigateToSeeMore } from "@/app/_hooks/useNavigateToSeeMore";
 
 type Props = {
   label: string;
@@ -14,7 +15,8 @@ type Props = {
 export const MoviesSection = ({ label, endpoint }: Props) => {
   const { data, isLoading } = useFetchClientData(endpoint);
 
-  const handleNavigateToPages = useNavigateToPages();
+  const handleNavigateToSeeMore = useNavigateToSeeMore();
+  const getEndpoint = endpoint.slice(7, endpoint.indexOf("?")).trim();
 
   type Movie = {
     poster_path: string;
@@ -30,8 +32,8 @@ export const MoviesSection = ({ label, endpoint }: Props) => {
       <div className="flex justify-between mb-8 ">
         <p className="text-3xl font-semibold">{label}</p>
         <p
-          className="w-[120px] flex justify-around items-center font-medium bg-red-400 cursor-pointer"
-          onClick={() => handleNavigateToPages("see-more", "awef")}
+          className="w-[120px] flex justify-around items-center font-medium  cursor-pointer"
+          onClick={() => handleNavigateToSeeMore(getEndpoint)}
         >
           See more <ArrowRight />
         </p>

@@ -8,7 +8,7 @@ export const HeaderContent = () => {
     <div className="flex justify-between items-center mx-20 my-3">
       <PageTitleMovieZ />
 
-      <div className="flex w-122 gap-x-4 ">
+      <div className="flex gap-x-4 items-center">
         <Genre />
         <SearchBarForHome />
       </div>

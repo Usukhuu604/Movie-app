@@ -3,7 +3,7 @@
 import { ShowFullDetailsOfSkeleton } from "../details-skeleton/ShowFullDetailsOfSkeleton";
 import { MoviePoster } from "@/app/_components/common/MoviePoster";
 import { ArrowRight } from "lucide-react";
-import { useNavigateToPages } from "@/app/_hooks/useNavigateToPages";
+import { useNavigateMoreLikeThis } from "@/app/_hooks/useNavigateMoreLikeThis";
 
 type Movie = {
   poster_path: string | null;
@@ -15,19 +15,18 @@ type Movie = {
 type similarMovies = {
   relatedMovies: Movie[];
   isLoading: boolean;
+  movieId: string;
 };
 
-export const MoreLikeThis = ({ relatedMovies, isLoading }: similarMovies) => {
-  const handleGotoMoreLikeThis = useNavigateToPages();
+export const MoreLikeThis = ({ relatedMovies, isLoading, movieId }: similarMovies) => {
+  const handleGotoMoreLikeThis = useNavigateMoreLikeThis();
 
   return (
     <div>
       <div className="flex justify-between items-center mb-8">
         <p className="text-4xl font-bold">More like this</p>
-        <p
-          className="flex text-lg text-gray-700 items-center gap-2 cursor-pointer"
-          onClick={() => handleGotoMoreLikeThis("detail/moreLike", "detailmoreLIke")}
-        >
+
+        <p className="flex text-lg text-gray-700 items-center gap-2 cursor-pointer" onClick={() => handleGotoMoreLikeThis(movieId)}>
           See more <ArrowRight />
         </p>
       </div>

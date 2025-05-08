@@ -2,6 +2,7 @@ import React from "react";
 
 import { LeadingMovies } from "./LeadingMovies";
 import { MoviesSection } from "./MoviesSection";
+import { start } from "repl";
 
 const endpoints: string[] = [
   "/movie/popular?language=en-US&page=1",

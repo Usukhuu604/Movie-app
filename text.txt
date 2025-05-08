@@ -13,12 +13,11 @@ GET: /movie/{id}/similar?language=en-US Ижил төстэй кинонууды
 
 <Fragment> olon shirheg div butsaana
 
-moviesection seemore 
+
 theme
 leadingmovies
 input useRef
 genre search
-pages for mutliple movies
 multi-genre search
-morelikethis movies
+pages for mutliple movies
 footercontent always bottom layout

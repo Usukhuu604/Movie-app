@@ -20,11 +20,11 @@ export const SearchBarForHome = () => {
   };
 
   return (
-    <div className="relative">
-      <div className="flex items-center w-full relative">
+    <div className="">
+      <div className=" relative ">
         <Input type="text" placeholder="Search..." className="w-[350px]" onChange={handleOnChange} value={input} />
         <Search
-          className="absolute right-0 transform cursor-pointer h-full w-10 p-2 text-gray-600 border border-transparent border-l-gray-300"
+          className="absolute right-0 top-0 transform cursor-pointer h-full w-10 p-2 text-gray-600 border border-transparent border-l-gray-300"
           onClick={() => {
             if (input.length !== 0) {
               setOpen(!open);
@@ -33,8 +33,8 @@ export const SearchBarForHome = () => {
           }}
         />
       </div>
-      {!(input && open) && (
-        <div className="absolute right-1/2 z-10 w-120 p-4 bg-white border border-gray-300 rounded-lg transform translate-x-1/2 ">
+      {input && (
+        <div className="absolute  z-10 w-120 mt-4 p-4 bg-white border border-gray-300 rounded-lg transform -translate-x-18 ">
           <div className="grid">
             {data?.results?.slice(0, 7).map((movie: { poster_path: string; id: string; title: string; vote_average: number }) => {
               let poster = `https://image.tmdb.org/t/p/w200${movie?.poster_path}`;
