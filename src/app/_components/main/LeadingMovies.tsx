@@ -12,14 +12,6 @@ type Props = {
 export const LeadingMovies = ({ endpoint }: Props) => {
   const { data, isLoading } = useFetchClientData(endpoint);
 
-  type Movie = {
-    backdrop_path: string;
-    id: string;
-    title: string;
-    vote_average: number;
-    overview: string;
-  };
-
   const handleClick = () => {
     return;
   };

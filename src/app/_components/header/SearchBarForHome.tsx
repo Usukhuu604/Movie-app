@@ -21,7 +21,7 @@ export const SearchBarForHome = () => {
 
   return (
     <div className="">
-      <div className=" relative ">
+      <div className=" relative w-full">
         <Input type="text" placeholder="Search..." className="w-[350px]" onChange={handleOnChange} value={input} />
         <Search
           className="absolute right-0 top-0 transform cursor-pointer h-full w-10 p-2 text-gray-600 border border-transparent border-l-gray-300"

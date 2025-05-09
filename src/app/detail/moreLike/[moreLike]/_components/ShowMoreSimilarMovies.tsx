@@ -9,13 +9,6 @@ type Props = {
   movieId: string;
 };
 export const ShowMoreSimilarMovies = ({ movieId }: Props) => {
-  type Movie = {
-    id: string;
-    poster_path: string;
-    title: string;
-    vote_average: number;
-  };
-
   const { data, isLoading } = useFetchClientData(`/movie/${movieId}/similar?language=en-US`);
 
   return (

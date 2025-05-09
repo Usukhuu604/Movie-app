@@ -5,13 +5,6 @@ import { MoviePoster } from "@/app/_components/common/MoviePoster";
 import { ArrowRight } from "lucide-react";
 import { useNavigateMoreLikeThis } from "@/app/_hooks/useNavigateMoreLikeThis";
 
-type Movie = {
-  poster_path: string | null;
-  title: string;
-  id: string;
-  vote_average: number;
-};
-
 type similarMovies = {
   relatedMovies: Movie[];
   isLoading: boolean;

@@ -11,6 +11,8 @@ import {
 import { ChevronDown, ChevronRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useFetchClientData } from "@/app/_hooks/useFetchDataInClient";
+import { Skeleton } from "@/components/ui/skeleton";
+import { useNavigateToPages } from "@/app/_hooks/useNavigateToPages";
 
 export const Genre = () => {
   const { data, isLoading } = useFetchClientData("/genre/movie/list?language=en");
@@ -19,6 +21,12 @@ export const Genre = () => {
     id: number;
     name: string;
   };
+
+  const handleNavigateGenre = useNavigateToPages();
+
+  if (isLoading) {
+    return <Skeleton className="w-50" />;
+  }
 
   return (
     <div>
@@ -38,7 +46,13 @@ export const Genre = () => {
           <DropdownMenuItem className="flex  flex-wrap">
             {data?.genres?.map((genre: GenreType) => {
               return (
-                <Button key={genre?.id} className="hover:bg-gray-200">
+                <Button
+                  key={genre?.id}
+                  className="hover:bg-gray-200"
+                  onClick={() => {
+                    handleNavigateGenre("genre", genre?.id);
+                  }}
+                >
                   {genre?.name}
                   <ChevronRight />
                 </Button>

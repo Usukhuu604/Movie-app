@@ -2,14 +2,7 @@
 
 import { useNavigateToPages } from "@/app/_hooks/useNavigateToPages";
 
-type MoviePosterProps = {
-  id: string;
-  poster: string | null;
-  title: string;
-  vote_average: number;
-};
-
-export const MoviePoster = ({ id, poster, title, vote_average }: MoviePosterProps) => {
+export const MoviePoster = ({ id, poster, title, vote_average }: Movie) => {
   const handleNavigateToPages = useNavigateToPages();
 
   return (

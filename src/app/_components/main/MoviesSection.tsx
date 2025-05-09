@@ -4,7 +4,6 @@ import { Loader, ArrowRight } from "lucide-react";
 import { Skeleton } from "@/components/ui/skeleton";
 import { MoviePoster } from "../common/MoviePoster";
 import { useFetchClientData } from "@/app/_hooks/useFetchDataInClient";
-// import { useNavigateToPages } from "@/app/_hooks/useNavigateToPages";
 import { useNavigateToSeeMore } from "@/app/_hooks/useNavigateToSeeMore";
 
 type Props = {
@@ -17,13 +16,6 @@ export const MoviesSection = ({ label, endpoint }: Props) => {
 
   const handleNavigateToSeeMore = useNavigateToSeeMore();
   const getEndpoint = endpoint.slice(7, endpoint.indexOf("?")).trim();
-
-  type Movie = {
-    poster_path: string;
-    title: string;
-    id: string;
-    vote_average: number;
-  };
 
   if (isLoading) return <Loader />;
 
