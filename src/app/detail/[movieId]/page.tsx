@@ -1,4 +1,3 @@
-import { FooterContent } from "@/app/_components/footer/FooterContent";
 import { FulldetailsPage } from "./_components/FullDetailsPage";
 
 type DetailPageParams = {
@@ -13,7 +12,6 @@ const DetailPage = async ({ params }: DetailPageParams) => {
   return (
     <div>
       <FulldetailsPage id={movieId} />
-      <FooterContent />
     </div>
   );
 };

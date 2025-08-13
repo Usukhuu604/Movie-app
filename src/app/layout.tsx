@@ -2,7 +2,8 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { HeaderContent } from "./_components/header/HeaderContent";
-import { FooterContent } from "./_components/footer/FooterContent";
+import { FooterContent } from "./_components/common/FooterContent";
+import { ThemeProvider as MovieAppThemeProvider } from "next-themes";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -25,12 +26,13 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
-        <HeaderContent />
-
-        {children}
-        {/* <FooterContent /> */}
+        <MovieAppThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
+          <HeaderContent />
+          {children}
+          <FooterContent />
+        </MovieAppThemeProvider>
       </body>
     </html>
   );

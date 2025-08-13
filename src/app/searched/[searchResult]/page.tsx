@@ -1,6 +1,6 @@
 import React from "react";
 import { ShowSearchResults } from "./components/ShowSearchResults";
-import { FooterContent } from "@/app/_components/footer/FooterContent";
+import { FooterContent } from "@/app/_components/common/FooterContent";
 import { GenreSuggestions } from "./components/GenreSuggestions";
 
 type SearchProps = {

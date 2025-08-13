@@ -5,8 +5,10 @@ import { SearchBarForHome } from "./SearchBarForHome";
 
 export const HeaderContent = () => {
   return (
-    <div className="flex justify-between items-center mx-20 my-3">
-      <PageTitleMovieZ />
+    <div className="flex justify-between items-center mx-20 my-3 ">
+      <div className="text-[#4338CA]">
+        <PageTitleMovieZ />
+      </div>
 
       <div className="flex gap-x-4 items-center">
         <Genre />
