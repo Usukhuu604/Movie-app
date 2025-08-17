@@ -5,7 +5,7 @@ import { useTheme } from "next-themes";
 
 type Props = {
   id: string;
-  poster: string;
+  poster: string | null;
   title: string;
   vote_average: number;
 };

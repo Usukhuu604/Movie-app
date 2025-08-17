@@ -1,6 +1,6 @@
 import React from "react";
 import { ShowMoviesByGenre } from "./_components/ShowMoviesByGenre";
-import { FooterContent } from "@/app/_components/common/FooterContent";
+
 type Props = {
   params: {
     genre: string;
@@ -12,7 +12,6 @@ const singleGenrePage = async ({ params }: Props) => {
   return (
     <div>
       <ShowMoviesByGenre genre_id={genre} />
-      <FooterContent />
     </div>
   );
 };

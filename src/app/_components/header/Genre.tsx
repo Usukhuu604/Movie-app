@@ -13,9 +13,11 @@ import { Button } from "@/components/ui/button";
 import { useFetchClientData } from "@/app/_hooks/useFetchDataInClient";
 import { Skeleton } from "@/components/ui/skeleton";
 import { useNavigateToPages } from "@/app/_hooks/useNavigateToPages";
+import { useTheme } from "next-themes";
 
 export const Genre = () => {
   const { data, isLoading } = useFetchClientData("/genre/movie/list?language=en");
+  const { resolvedTheme } = useTheme();
 
   type GenreType = {
     id: number;
@@ -36,10 +38,10 @@ export const Genre = () => {
             <ChevronDown /> Genre
           </Button>
         </DropdownMenuTrigger>
-        <DropdownMenuContent className="w-[600px] h-[280px] bg-white">
+        <DropdownMenuContent className={`w-[600px] h-[280px] ${resolvedTheme == "dark" ? "bg-gray-700" : "bg-white"}`}>
           <DropdownMenuLabel>
-            <p className="text-[24px]">Genres</p>
-            <p className="text-[16px] font-normal text-gray-600">See lists of movies by genre.</p>
+            <p className={`text-[24px] ${resolvedTheme == "dark" ? "text-white" : "text-black"}`}>Genres</p>
+            <p className="text-[16px] font-normal text-gray-400">See lists of movies by genre.</p>
           </DropdownMenuLabel>
           <DropdownMenuSeparator />
           <div className="w-full border border-gray-400"></div>
@@ -48,7 +50,9 @@ export const Genre = () => {
               return (
                 <Button
                   key={genre?.id}
-                  className="hover:bg-gray-200"
+                  className={`hover:bg-gray-400 cursor-pointer ${
+                    resolvedTheme == "light" ? "text-black" : "text-white"
+                  }`}
                   onClick={() => {
                     handleNavigateGenre("genre", genre?.id);
                   }}

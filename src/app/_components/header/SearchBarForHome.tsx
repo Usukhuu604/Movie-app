@@ -1,64 +1,153 @@
 "use client";
 
 import { Input } from "@/components/ui/input";
-import { Search } from "lucide-react";
-import { useState } from "react";
+import { Search, Loader2 } from "lucide-react";
+import { useState, useEffect } from "react";
 import { useFetchClientData } from "@/app/_hooks/useFetchDataInClient";
 import { useNavigateToPages } from "@/app/_hooks/useNavigateToPages";
+import { useTheme } from "next-themes";
 
 export const SearchBarForHome = () => {
   const [input, setInput] = useState("");
+  const [debouncedInput, setDebouncedInput] = useState("");
   const [open, setOpen] = useState(false);
+  const [selectedIndex, setSelectedIndex] = useState(-1);
 
-  const { data, isLoading } = useFetchClientData(`/search/movie?query=${input}&language=en-US&page=1`);
+  const { resolvedTheme } = useTheme();
+  const { data, isLoading } = useFetchClientData(
+    debouncedInput ? `/search/movie?query=${debouncedInput}&language=en-US&page=1` : ""
+  );
 
   const handleGotoDetails = useNavigateToPages();
   const handleNavigateSearchResult = useNavigateToPages();
 
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setDebouncedInput(input);
+    }, 300);
+
+    return () => clearTimeout(timer);
+  }, [input]);
+
   const handleOnChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setInput(event.target.value);
+    setSelectedIndex(-1);
+    setOpen(true);
   };
 
   return (
-    <div className="">
-      <div className=" relative w-full">
-        <Input type="text" placeholder="Search..." className="w-[350px]" onChange={handleOnChange} value={input} />
-        <Search
-          className="absolute right-0 top-0 transform cursor-pointer h-full w-10 p-2 text-gray-600 border border-transparent border-l-gray-300"
-          onClick={() => {
-            if (input.length !== 0) {
-              setOpen(!open);
-              handleNavigateSearchResult("searched", input);
-            }
-          }}
+    <div className="relative">
+      <div className="relative w-full">
+        <Input
+          type="text"
+          placeholder="Search movies..."
+          className={`w-[350px] pr-12 ${
+            resolvedTheme === "light"
+              ? "bg-white border-gray-300 text-gray-900"
+              : "bg-gray-800 border-gray-600 text-white"
+          }`}
+          onChange={handleOnChange}
+          value={input}
+          onFocus={() => input && setOpen(true)}
+          onBlur={() => setTimeout(() => setOpen(false), 200)}
+          aria-label="Search movies"
+          aria-expanded={open}
+          aria-haspopup="listbox"
         />
+        <div className="absolute right-0 top-0 h-full flex items-center">
+          {isLoading && debouncedInput ? (
+            <Loader2 className="w-5 h-5 mr-3 animate-spin text-gray-500" />
+          ) : (
+            <Search
+              className={`w-5 h-5 mr-3 cursor-pointer ${resolvedTheme === "light" ? "text-gray-600" : "text-gray-400"}`}
+              onClick={() => {
+                if (input.length !== 0) {
+                  handleNavigateSearchResult("searched", input);
+                  setOpen(false);
+                }
+              }}
+            />
+          )}
+        </div>
       </div>
-      {input && (
-        <div className="absolute  z-10 w-120 mt-4 p-4 bg-white border border-gray-300 rounded-lg transform -translate-x-18 ">
-          <div className="grid">
-            {data?.results?.slice(0, 7).map((movie: { poster_path: string; id: string; title: string; vote_average: number }) => {
-              let poster = `https://image.tmdb.org/t/p/w200${movie?.poster_path}`;
-              let key = movie?.id;
-              return (
-                <div
-                  key={key}
-                  className="flex flex-col gap-1 hover:bg-gray-300 cursor-pointer rounded-lg p-2"
-                  onClick={() => handleGotoDetails("detail", movie?.id)}
-                >
-                  <div className="flex gap-4 items-center ">
-                    <img src={poster} alt="" className="w-16 h-16 rounded-lg" />
-                    <div className="w-full">
-                      <p className="text-[20px]">{movie?.title}</p>
-                      <p className="text-gray-500 text-4">⭐️{movie?.vote_average?.toFixed(1)}/10</p>
+
+      {open && input && data?.results && (
+        <div
+          className={`absolute z-50 w-full max-w-[500px] mt-2 p-4 rounded-lg shadow-lg border ${
+            resolvedTheme === "light" ? "bg-white border-gray-300" : "bg-gray-800 border-gray-600"
+          }`}
+          role="listbox"
+        >
+          <div className="space-y-1">
+            {data.results
+              .slice(0, 7)
+              .map((movie: { poster_path: string; id: string; title: string; vote_average: number }, index: number) => {
+                const poster = movie.poster_path
+                  ? `https://image.tmdb.org/t/p/w200${movie.poster_path}`
+                  : "/placeholder-movie.jpg";
+
+                return (
+                  <div
+                    key={movie.id}
+                    className={`flex items-center gap-4 p-3 rounded-lg cursor-pointer transition-colors ${
+                      selectedIndex === index
+                        ? resolvedTheme === "light"
+                          ? "bg-gray-100"
+                          : "bg-gray-700"
+                        : resolvedTheme === "light"
+                        ? "hover:bg-gray-50"
+                        : "hover:bg-gray-700"
+                    }`}
+                    onClick={() => {
+                      handleGotoDetails("detail", movie.id);
+                      setOpen(false);
+                    }}
+                    role="option"
+                    aria-selected={selectedIndex === index}
+                  >
+                    <img
+                      src={poster}
+                      alt={`${movie.title} poster`}
+                      className="w-12 h-16 rounded object-cover flex-shrink-0"
+                      onError={(e) => {
+                        (e.target as HTMLImageElement).src = "/placeholder-movie.jpg";
+                      }}
+                    />
+                    <div className="flex-1 min-w-0">
+                      <p
+                        className={`font-medium truncate ${resolvedTheme === "light" ? "text-gray-900" : "text-white"}`}
+                      >
+                        {movie.title}
+                      </p>
+                      <p className={`text-sm ${resolvedTheme === "light" ? "text-gray-500" : "text-gray-400"}`}>
+                        ⭐️ {movie.vote_average?.toFixed(1)}/10
+                      </p>
                     </div>
                   </div>
-                  <div className="w-full border border-gray-300 mt-4"></div>
-                </div>
-              );
-            })}
-            <p className="hover:bg-gray-200 cursor-pointer rounded-lg p-2 " onClick={() => handleNavigateSearchResult("searched", input)}>
-              See all results for "{input}"
-            </p>
+                );
+              })}
+
+            <div
+              className={`p-3 rounded-lg cursor-pointer transition-colors border-t ${
+                selectedIndex === data.results.slice(0, 7).length
+                  ? resolvedTheme === "light"
+                    ? "bg-gray-100"
+                    : "bg-gray-700"
+                  : resolvedTheme === "light"
+                  ? "hover:bg-gray-50 border-gray-200"
+                  : "hover:bg-gray-700 border-gray-600"
+              }`}
+              onClick={() => {
+                handleNavigateSearchResult("searched", input);
+                setOpen(false);
+              }}
+              role="option"
+              aria-selected={selectedIndex === data.results.slice(0, 7).length}
+            >
+              <p className={`text-sm font-medium ${resolvedTheme === "light" ? "text-blue-600" : "text-blue-400"}`}>
+                See all results for "{input}"
+              </p>
+            </div>
           </div>
         </div>
       )}

@@ -1,6 +1,6 @@
 import React from "react";
 import { ShowSearchResults } from "./components/ShowSearchResults";
-import { FooterContent } from "@/app/_components/common/FooterContent";
+
 import { GenreSuggestions } from "./components/GenreSuggestions";
 
 type SearchProps = {
@@ -20,8 +20,6 @@ const SearchResultPage = async ({ params }: SearchProps) => {
           <GenreSuggestions />
         </div>
       </div>
-
-      <FooterContent />
     </div>
   );
 };

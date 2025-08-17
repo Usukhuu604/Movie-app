@@ -1,43 +1,51 @@
-import { Mail, Phone, Film } from "lucide-react";
+import { Mail, Phone } from "lucide-react";
 import { PageTitleMovieZ } from "./PageTitleMovieZ";
 
 export const FooterContent = () => {
   return (
-    <div className="grid grid-cols-4 gap-3 w-full text-center text-white bg-[#4338CA] relative bottom-0 mt-12 h-30 ">
-      <div className="col-start-1">
-        <PageTitleMovieZ />
-        <p>© 2025 Movie Z. All rights reserved.</p>
-      </div>
+    <footer className="w-full mt-12 p-6 bg-[#4338CA] text-white">
+      <div className="max-w-6xl mx-auto">
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
+          <div className="md:col-span-1 text-center md:text-left">
+            <PageTitleMovieZ />
+            <p className="mt-4 text-sm opacity-90">© 2025 Movie Z. All rights reserved.</p>
+          </div>
 
-      <div className="col-start-3">
-        <p>Contact information</p>
-        <ul>
-          <li className="flex">
-            <div>
-              <Mail />
-              Email
+          <div className="hidden md:block"></div>
+
+          <div className="text-center md:text-left">
+            <h3 className="font-semibold text-lg mb-4">Contact Information</h3>
+            <div className="space-y-3">
+              <div className="flex items-center justify-center md:justify-start gap-2">
+                <Mail size={16} />
+                <span className="text-sm">support@movie.com</span>
+              </div>
+              <div className="flex items-center justify-center md:justify-start gap-2">
+                <Phone size={16} />
+                <span className="text-sm">+976 12345678</span>
+              </div>
             </div>
-            <p>support@movie.com</p>
-          </li>
-          <li className="flex">
-            <p>
-              <Phone />
-              Phone
-            </p>
-            <p>+976 12345678</p>
-          </li>
-        </ul>
-      </div>
+          </div>
 
-      <div className="col-start-4">
-        <p>Follow us</p>
-        <p>
-          <a href="">Facebook</a>
-          <a href="">Instagram</a>
-          <a href="">Twitter</a>
-          <a href="">Youtube</a>
-        </p>
+          <div className="text-center md:text-left">
+            <h3 className="font-semibold text-lg mb-4">Follow Us</h3>
+            <div className="flex justify-center md:justify-start gap-4">
+              <a href="#" className="hover:opacity-75 transition-opacity" aria-label="Website">
+                Facebook
+              </a>
+              <a href="#" className="hover:opacity-75 transition-opacity" aria-label="Instagram">
+                Instagram
+              </a>
+              <a href="#" className="hover:opacity-75 transition-opacity" aria-label="Twitter">
+                Twitter
+              </a>
+              <a href="#" className="hover:opacity-75 transition-opacity" aria-label="YouTube">
+                Youtube
+              </a>
+            </div>
+          </div>
+        </div>
       </div>
-    </div>
+    </footer>
   );
 };
