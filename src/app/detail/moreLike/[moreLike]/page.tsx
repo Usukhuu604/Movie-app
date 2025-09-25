@@ -1,9 +1,9 @@
 import { ShowMoreSimilarMovies } from "./_components/ShowMoreSimilarMovies";
 
 type MoreLikeProps = {
-  params: {
+  params: Promise<{
     moreLike: string;
-  };
+  }>;
 };
 const MoreLikeThis = async ({ params }: MoreLikeProps) => {
   const { moreLike } = await params;
