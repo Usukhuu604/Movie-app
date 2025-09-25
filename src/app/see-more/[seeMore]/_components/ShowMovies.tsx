@@ -1,4 +1,5 @@
 "use client";
+
 import { useFetchClientData } from "@/app/_hooks/useFetchDataInClient";
 import { MoviePoster } from "@/app/_components/common/MoviePoster";
 import { Skeleton } from "@/components/ui/skeleton";
@@ -24,6 +25,7 @@ const ShowMovies = ({ endpoint, section }: ShowMoviesProps) => {
       <p className="font-bold text-2xl sm:text-3xl mb-6 sm:mb-8 md:mb-10">
         {toCapitalize(section)}
       </p>
+
       <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 sm:gap-6 md:gap-8">
         {!isLoading ? (
           data?.results?.map((movie: Movie) => {

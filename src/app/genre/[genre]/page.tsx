@@ -1,4 +1,3 @@
-import React from "react";
 import { ShowMoviesByGenre } from "./_components/ShowMoviesByGenre";
 
 type Props = {

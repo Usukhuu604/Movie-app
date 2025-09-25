@@ -1,6 +1,5 @@
 "use client";
 
-import React from "react";
 import { useTheme } from "next-themes";
 import { Button } from "@/components/ui/button";
 import { ChevronRight } from "lucide-react";
@@ -16,6 +15,7 @@ export const GenreSuggestions = () => {
     <div className="w-full max-w-full">
       <p className="font-bold text-2xl">Search by genre</p>
       <p className="text-gray-500 mb-5">See lists of movies by genre</p>
+
       <div className="flex flex-wrap gap-2">
         {data?.genres?.map((genre: { id: string; name: string }) => {
           return (

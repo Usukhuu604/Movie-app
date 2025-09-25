@@ -4,7 +4,6 @@ import React, { useState } from "react";
 import { useFetchClientData } from "@/app/_hooks/useFetchDataInClient";
 import { MoviePoster } from "@/app/_components/common/MoviePoster";
 import { Skeleton } from "@/components/ui/skeleton";
-
 import {
   Pagination,
   PaginationContent,
@@ -23,7 +22,6 @@ export const ShowSearchResults = ({ endpoint }: Props) => {
   const [page, setPage] = useState(1);
   const searchQuery = endpoint.split("query=")[1]?.split("&")[0];
   const paginatedEndpoint = `/search/movie?query=${searchQuery}&language=en-US&page=${page}`;
-
   const { data, isLoading } = useFetchClientData(paginatedEndpoint);
 
   const handleNextPage = (pageNumber?: number) => {
@@ -44,25 +42,36 @@ export const ShowSearchResults = ({ endpoint }: Props) => {
   return (
     <div className="w-full">
       <p className="text-lg mb-5">
-        {data?.total_results ? `${data.total_results} results found` : "Loading..."}
+        {data?.total_results
+          ? `${data.total_results} results found`
+          : "Loading..."}
         {data?.total_results && ` (Page ${page} of ${maxPages})`}
       </p>
 
       <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-6 sm:gap-8 md:gap-12 mb-8">
         {!isLoading
-          ? data?.results?.map((movie: { id: string; title: string; poster_path: string; vote_average: number }) => {
-              let poster = movie?.poster_path ? `https://image.tmdb.org/t/p/w500${movie?.poster_path}` : null;
-              let key = movie?.id;
-              return (
-                <MoviePoster
-                  key={key}
-                  poster={poster}
-                  id={movie?.id}
-                  title={movie?.title}
-                  vote_average={movie?.vote_average}
-                />
-              );
-            })
+          ? data?.results?.map(
+              (movie: {
+                id: string;
+                title: string;
+                poster_path: string;
+                vote_average: number;
+              }) => {
+                let poster = movie?.poster_path
+                  ? `https://image.tmdb.org/t/p/w500${movie?.poster_path}`
+                  : null;
+                let key = movie?.id;
+                return (
+                  <MoviePoster
+                    key={key}
+                    poster={poster}
+                    id={movie?.id}
+                    title={movie?.title}
+                    vote_average={movie?.vote_average}
+                  />
+                );
+              }
+            )
           : Array.from({ length: 8 }).map((_, index) => (
               <div key={index} className="w-full h-auto flex items-center">
                 <Skeleton className="w-full h-[300px] sm:h-[400px]" />
@@ -108,7 +117,10 @@ export const ShowSearchResults = ({ endpoint }: Props) => {
                   <PaginationEllipsis />
                 </PaginationItem>
                 <PaginationItem>
-                  <PaginationLink href="#" onClick={() => handleNextPage(maxPages)}>
+                  <PaginationLink
+                    href="#"
+                    onClick={() => handleNextPage(maxPages)}
+                  >
                     {maxPages}
                   </PaginationLink>
                 </PaginationItem>
