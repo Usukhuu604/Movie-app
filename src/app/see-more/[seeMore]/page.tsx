@@ -1,9 +1,9 @@
 import ShowMovies from "./_components/ShowMovies";
 
 type SeeMoreProps = {
-  params: {
+  params: Promise<{
     seeMore: string;
-  };
+  }>;
 };
 
 const SeeMore = async ({ params }: SeeMoreProps) => {
