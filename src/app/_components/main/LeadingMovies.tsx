@@ -57,7 +57,7 @@ export const LeadingMovies = ({ endpoint }: Props) => {
     autoSlideRef.current = setInterval(() => {
       nextSlide();
     }, 5000);
-  }, []);
+  }, [nextSlide]);
 
   const handleMouseDown = (e: React.MouseEvent) => {
     setIsDragging(true);
