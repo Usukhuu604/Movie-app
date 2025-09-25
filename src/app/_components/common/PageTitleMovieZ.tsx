@@ -8,11 +8,11 @@ export const PageTitleMovieZ = () => {
 
   return (
     <div
-      className="flex gap-x-2 text-2xl text-center font-bold italic cursor-pointer px-10 py-3"
+      className="flex items-center gap-2 text-lg sm:text-xl md:text-2xl font-bold italic cursor-pointer hover:opacity-80 transition-opacity"
       onClick={() => handleClickNavigateHomePage()}
     >
-      <Film className="" />
-      <p>Movie Z</p>
+      <Film className="w-5 h-5 sm:w-6 sm:h-6 md:w-7 md:h-7" />
+      <span>Movie Z</span>
     </div>
   );
 };

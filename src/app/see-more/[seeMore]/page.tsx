@@ -14,7 +14,7 @@ const SeeMore = async ({ params }: SeeMoreProps) => {
   const endpoint = `/movie/${seeMore}?language=en-US&page=1`;
 
   return (
-    <div>
+    <div className="min-h-screen">
       <ShowMovies endpoint={endpoint} section={seeMore} />
     </div>
   );

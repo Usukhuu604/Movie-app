@@ -27,10 +27,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
+      <body className={`${geistSans.variable} ${geistMono.variable} antialiased min-h-screen flex flex-col`}>
         <MovieAppThemeProvider attribute="class" defaultTheme="light" enableSystem disableTransitionOnChange>
           <HeaderContent />
-          {children}
+          <main className="flex-1">{children}</main>
           <FooterContent />
         </MovieAppThemeProvider>
       </body>

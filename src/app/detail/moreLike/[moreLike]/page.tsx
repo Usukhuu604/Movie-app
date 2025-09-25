@@ -9,7 +9,7 @@ const MoreLikeThis = async ({ params }: MoreLikeProps) => {
   const { moreLike } = await params;
 
   return (
-    <div>
+    <div className="min-h-screen">
       <ShowMoreSimilarMovies movieId={moreLike} />
     </div>
   );

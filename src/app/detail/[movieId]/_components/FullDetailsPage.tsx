@@ -30,7 +30,7 @@ export const FulldetailsPage = ({ id }: MovieId) => {
   }
 
   return (
-    <div className="mx-4 sm:mx-8 md:mx-16 lg:mx-32 xl:mx-50 my-8 sm:my-12 md:my-15">
+    <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8 lg:py-12 space-y-8 sm:space-y-12">
       <DetailTitle
         title={moreDetail.title}
         adult={moreDetail.adult}

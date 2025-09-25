@@ -25,11 +25,17 @@ export const useGetDetails = (endpoint: string) => {
     isLoading: isLoading,
 
     directing: data?.crew
-      ?.filter((director: { known_for_department: string }) => director.known_for_department == "Directing")
+      ?.filter(
+        (director: { known_for_department: string }) =>
+          director.known_for_department == "Directing"
+      )
       .map((director: { original_name: string }) => director.original_name)
       .slice(0, 3),
     writing: data?.crew
-      ?.filter((writer: { known_for_department: string }) => writer.known_for_department == "Writing")
+      ?.filter(
+        (writer: { known_for_department: string }) =>
+          writer.known_for_department == "Writing"
+      )
       .map((writer: { original_name: string }) => writer.original_name)
       .slice(0, 3),
 

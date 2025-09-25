@@ -10,7 +10,7 @@ type Props = {
 const singleGenrePage = async ({ params }: Props) => {
   const { genre } = await params;
   return (
-    <div>
+    <div className="min-h-screen">
       <ShowMoviesByGenre genre_id={genre} />
     </div>
   );

@@ -7,13 +7,24 @@ type DetailPageParams = {
 };
 
 const DetailPage = async ({ params }: DetailPageParams) => {
-  const { movieId } = await params;
+  try {
+    const { movieId } = await params;
 
-  return (
-    <div>
-      <FulldetailsPage id={movieId} />
-    </div>
-  );
+    return (
+      <div className="min-h-screen sm:p-8">
+        <FulldetailsPage id={movieId} />
+      </div>
+    );
+  } catch (error) {
+    console.error("Error loading movie details:", error);
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <p className="text-red-500">
+          Failed to load movie details. Please try again later.
+        </p>
+      </div>
+    );
+  }
 };
 
 export default DetailPage;

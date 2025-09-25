@@ -12,11 +12,16 @@ const endpoints: string[] = [
 
 export const MainPage = () => {
   return (
-    <div className="grid gap-y-[52px]">
-      <LeadingMovies endpoint={endpoints[3]} />
-      <MoviesSection label="Upcoming" endpoint={endpoints[1]} />
-      <MoviesSection label="Popular" endpoint={endpoints[0]} />
-      <MoviesSection label="Top Rated" endpoint={endpoints[2]} />
+    <div className="w-full">
+      <div className="space-y-8 sm:space-y-12 lg:space-y-16">
+        <LeadingMovies endpoint={endpoints[3]} />
+
+        <div className="sm:px-10">
+          <MoviesSection label="Upcoming" endpoint={endpoints[1]} />
+          <MoviesSection label="Popular" endpoint={endpoints[0]} />
+          <MoviesSection label="Top Rated" endpoint={endpoints[2]} />
+        </div>
+      </div>
     </div>
   );
 };

@@ -20,23 +20,30 @@ export const MoviesSection = ({ label, endpoint }: Props) => {
   if (isLoading) return <Loader />;
 
   return (
-    <div className="h-auto px-4 sm:px-8 md:px-12 lg:px-20">
-      <div className="flex justify-between mb-8 ">
-        <p className="text-xl sm:text-2xl md:text-3xl font-semibold">{label}</p>
-        <p
-          className="w-auto sm:w-[120px] flex justify-around items-center font-medium  cursor-pointer"
+    <section className="container mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="flex justify-between items-center mb-6 sm:mb-8">
+        <h2 className="text-xl sm:text-2xl md:text-3xl font-semibold">
+          {label}
+        </h2>
+
+        <button
+          className="flex items-center gap-2 font-medium text-sm sm:text-base hover:text-blue-600 transition-colors cursor-pointer"
           onClick={() => handleNavigateToSeeMore(getEndpoint)}
         >
-          <span className="hidden sm:inline">See more</span> <ArrowRight />
-        </p>
+          <span className="hidden sm:inline">See more</span>
+          <ArrowRight className="w-4 h-4 sm:w-5 sm:h-5" />
+        </button>
       </div>
 
-      <div className="grid grid-cols-5 grid-rows-2 gap-8">
+      <div
+        className={`grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3 sm:gap-4 md:gap-6 ${
+          label === "Top Rated" ? "mb-12" : "mb-20"
+        }`}
+      >
         {!isLoading ? (
           data?.results?.slice(0, 10).map((movie: Movie) => {
-            let poster = "https://image.tmdb.org/t/p/original" + movie.poster_path;
+            let poster = "https://image.tmdb.org/t/p/w500" + movie.poster_path;
             let key = movie?.id;
-
             return (
               <MoviePoster
                 key={key}
@@ -48,11 +55,13 @@ export const MoviesSection = ({ label, endpoint }: Props) => {
             );
           })
         ) : (
-          <div className=" w-full h-auto flex items-center">
-            <Skeleton className="w-full h-full" />
+          <div className="col-span-full grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3 sm:gap-4 md:gap-6">
+            {Array.from({ length: 10 }).map((_, index) => (
+              <Skeleton key={index} className="aspect-[2/3] w-full" />
+            ))}
           </div>
         )}
       </div>
-    </div>
+    </section>
   );
 };
