@@ -1,9 +1,9 @@
 import { ShowMoviesByGenre } from "./_components/ShowMoviesByGenre";
 
 type Props = {
-  params: {
+  params: Promise<{
     genre: string;
-  };
+  }>;
 };
 
 const singleGenrePage = async ({ params }: Props) => {
