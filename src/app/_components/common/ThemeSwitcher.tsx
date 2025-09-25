@@ -16,7 +16,7 @@ export const ThemeSwitcher = () => {
   return (
     <div
       onClick={toggleTheme}
-      className="border border-gray-300 rounded-lg size-[36px] flex items-center justify-center"
+      className="border border-gray-300 rounded-lg size-[36px] flex items-center justify-center cursor-pointer "
       aria-label="Toggle theme"
     >
       {isDark ? <Sun className="size-6" /> : <Moon className="size-6" />}

@@ -30,16 +30,16 @@ export const LeadingMovies = ({ endpoint }: Props) => {
 
             return (
               <CarouselItem key={index} className="w-screen h-200 shrink-0 snap-center">
-                <div className="absolute text-white top-1/2 ml-20 transform -translate-y-1/2 w-100 h-66 z-10">
+                <div className="absolute text-white top-1/2 ml-4 sm:ml-8 md:ml-12 lg:ml-20 transform -translate-y-1/2 w-11/12 sm:w-3/4 md:w-1/2 h-auto z-10">
                   {index !== 0 && <CarouselPrevious className="bg-white text-black" />}
                   <p>Now Playing</p>
-                  <p className="font-bold text-4xl">{movie.title}</p>
-                  <p className="text-2xl font-semibold">
+                  <p className="font-bold text-2xl sm:text-3xl md:text-4xl">{movie.title}</p>
+                  <p className="text-xl sm:text-2xl font-semibold">
                     ⭐️{movie.vote_average.toFixed(1)}
                     <span className="text-gray-400">/10</span>
                   </p>
-                  <p>{movie.overview}</p>
-                  <Button className="bg-white border-2 rounded-lg text-black" onClick={handleClick}>
+                  <p className="hidden md:block">{movie.overview}</p>
+                  <Button className="bg-white border-2 rounded-lg text-black mt-2" onClick={handleClick}>
                     Watch Trailer
                   </Button>
                   {index !== 2 && <CarouselNext className="bg-white text-black" />}

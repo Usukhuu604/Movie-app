@@ -5,8 +5,8 @@ export const FooterContent = () => {
   return (
     <footer className="w-full mt-12 p-6 bg-[#4338CA] text-white">
       <div className="max-w-6xl mx-auto">
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
-          <div className="md:col-span-1 text-center md:text-left">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8">
+          <div className="sm:col-span-2 md:col-span-1 text-center md:text-left">
             <PageTitleMovieZ />
             <p className="mt-4 text-sm opacity-90">© 2025 Movie Z. All rights reserved.</p>
           </div>

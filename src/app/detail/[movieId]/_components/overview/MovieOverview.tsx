@@ -9,26 +9,26 @@ type MovieOverviewProps = {
 
 export const MovieOverview = ({ directors, overview, writing, stars }: MovieOverviewProps) => {
   return (
-    <div className="  py-8 ">
-      <p>{overview}</p>
+    <div className="py-8">
+      <p className="mb-4">{overview}</p>
 
       <div className="mb-8">
-        <div className="flex mb-2">
-          <p className="font-semibold w-24">Director</p>
+        <div className="flex flex-col sm:flex-row mb-2">
+          <p className="font-semibold w-full sm:w-24 mb-1 sm:mb-0">Director</p>
           <p className="">{directors?.join(", ")}</p>
         </div>
 
         <hr />
 
-        <div className="flex mb-2">
-          <p className="font-semibold w-24">Writers</p>
+        <div className="flex flex-col sm:flex-row mb-2">
+          <p className="font-semibold w-full sm:w-24 mb-1 sm:mb-0">Writers</p>
           <p className="">{writing?.join(", ")}</p>
         </div>
 
         <hr />
 
-        <div className="flex mb-2">
-          <p className="font-semibold w-24">Stars</p>
+        <div className="flex flex-col sm:flex-row mb-2">
+          <p className="font-semibold w-full sm:w-24 mb-1 sm:mb-0">Stars</p>
           <p className="">{stars?.join(", ")}</p>
         </div>
 

@@ -5,8 +5,8 @@ import { useFetchClientData } from "@/app/_hooks/useFetchDataInClient";
 import { MoviePoster } from "@/app/_components/common/MoviePoster";
 import { Skeleton } from "@/components/ui/skeleton";
 import { useTheme } from "next-themes";
-import { X } from "lucide-react";
-
+import { X, ChevronRight } from "lucide-react";
+import { Button } from "@/components/ui/button";
 import {
   Pagination,
   PaginationContent,
@@ -16,44 +16,27 @@ import {
   PaginationNext,
   PaginationPrevious,
 } from "@/components/ui/pagination";
-
-type Props = {
-  genre_id: string;
-};
-
-type Genre = {
-  id: string;
-  name: string;
-};
-
-type Movie = {
-  id: string;
-  title: string;
-  poster_path: string;
-  vote_average: number;
-};
+import { Props } from "../../../../../global";
+import { Genre } from "../../../../../global";
 
 export const ShowMoviesByGenre = ({ genre_id }: Props) => {
   const [page, setPage] = useState(1);
-  const [selectedGenres, setSelectedGenres] = useState<number[]>([parseInt(genre_id)]);
+  const [selectedGenres, setSelectedGenres] = useState<string[]>([genre_id]);
   const { resolvedTheme } = useTheme();
 
-  // Fetch genres for names
   const { data: genresData } = useFetchClientData("/genre/movie/list?language=en");
 
-  // Build endpoint with selected genres
   const genreIds = selectedGenres.join(",");
   const { data, isLoading } = useFetchClientData(`/discover/movie?language=en&with_genres=${genreIds}&page=${page}`);
 
-  // Update selected genres when genre_id prop changes
   useEffect(() => {
-    if (genre_id && !selectedGenres.includes(parseInt(genre_id))) {
-      setSelectedGenres([parseInt(genre_id)]);
+    if (genre_id && !selectedGenres.includes(genre_id)) {
+      setSelectedGenres([genre_id]);
       setPage(1);
     }
-  }, [genre_id]);
+  }, [genre_id, selectedGenres]);
 
-  const handleGenreToggle = (genreId: number) => {
+  const handleGenreToggle = (genreId: string) => {
     setSelectedGenres((prev) => {
       if (prev.includes(genreId)) {
         return prev.filter((id) => id !== genreId);
@@ -64,108 +47,86 @@ export const ShowMoviesByGenre = ({ genre_id }: Props) => {
     setPage(1);
   };
 
-  const handleRemoveGenre = (genreId: number) => {
+  const handleRemoveGenre = (genreId: string) => {
     if (selectedGenres.length > 1) {
-      // Keep at least one genre
       setSelectedGenres((prev) => prev.filter((id) => id !== genreId));
       setPage(1);
     }
   };
 
-  const handleNextPage = (pageNumber?: number) => {
-    if (pageNumber) {
-      setPage(pageNumber);
-    } else {
-      setPage((page) => page + 1);
-    }
+  const handlePageChange = (newPage: number) => {
+    setPage(newPage);
   };
 
-  const handlePreviousPage = () => {
-    setPage((page) => page - 1);
-  };
-
-  const totalPages = data?.total_pages || 20;
-  const maxPages = Math.min(totalPages, 20);
+  const totalPages = data?.total_pages || 1;
+  const maxPages = Math.min(totalPages, 500);
 
   return (
-    <div className="mx-30 my-15">
-      <div className="grid grid-cols-12 gap-8">
-        {/* Genre Suggestions Sidebar */}
-        <div className="col-span-3">
-          {/* Selected Genres */}
-          <div className="mt-6">
-            <h3 className={`font-bold text-lg mb-3 ${resolvedTheme === "light" ? "text-gray-900" : "text-white"}`}>
-              Selected Genres
-            </h3>
-            <div className="flex flex-wrap gap-2">
-              {selectedGenres.map((genreId) => {
-                const genre = genresData?.genres?.find((g: Genre) => g.id === genreId);
+    <div className="mx-4 sm:mx-8 md:mx-16 lg:mx-30 my-8 sm:my-12 md:my-15">
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
+        <div className="lg:col-span-3">
+          <div>
+            <p className="font-bold text-2xl">Search by genre</p>
+            <p className="text-gray-500 mb-5">See lists of movies by genre</p>
+            <div className="flex flex-wrap">
+              {genresData?.genres?.map((genre: Genre) => {
+                const isSelected = selectedGenres.includes(genre.id);
                 return (
-                  <div
-                    key={genreId}
-                    className={`flex items-center gap-2 px-3 py-1 rounded-full text-sm ${
-                      resolvedTheme === "light" ? "bg-blue-100 text-blue-800" : "bg-blue-900 text-blue-200"
+                  <Button
+                    key={genre.id}
+                    onClick={() => handleGenreToggle(genre.id)}
+                    className={`my-1.5 mx-2 rounded-full border border-gray-200 ${
+                      isSelected
+                        ? resolvedTheme === "dark"
+                          ? "text-white bg-blue-600 hover:bg-blue-700"
+                          : "text-white bg-blue-600 hover:bg-blue-700"
+                        : resolvedTheme === "dark"
+                        ? "text-white bg-gray-700 hover:bg-gray-600"
+                        : "bg-gray-50 hover:bg-gray-400"
                     }`}
                   >
-                    {genre?.name}
-                    {selectedGenres.length > 1 && (
+                    {genre.name}
+                    {isSelected && selectedGenres.length > 1 ? (
                       <X
-                        size={14}
-                        className="cursor-pointer hover:opacity-70"
-                        onClick={() => handleRemoveGenre(genreId)}
+                        size={16}
+                        className="ml-2"
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          handleRemoveGenre(genre.id);
+                        }}
                       />
+                    ) : (
+                      <ChevronRight size={16} className="ml-2" />
                     )}
-                  </div>
+                  </Button>
                 );
               })}
             </div>
           </div>
-
-          {/* Additional Genre Selection */}
-          <div className="mt-6">
-            <h3 className={`font-bold text-lg mb-3 ${resolvedTheme === "light" ? "text-gray-900" : "text-white"}`}>
-              Genres
-            </h3>
-            <div className="grid grid-cols-1 gap-2  overflow-y-auto">
-              {genresData?.genres
-                ?.filter((genre: Genre) => !selectedGenres.includes(genre.id))
-                ?.map((genre: Genre) => (
-                  <button
-                    key={genre.id}
-                    onClick={() => handleGenreToggle(genre.id)}
-                    className={`px-3 py-2 rounded-lg text-sm font-medium transition-colors text-left ${
-                      resolvedTheme === "light"
-                        ? "bg-gray-100 text-gray-700 hover:bg-gray-200"
-                        : "bg-gray-700 text-gray-300 hover:bg-gray-600"
-                    }`}
-                  >
-                    + {genre.name}
-                  </button>
-                ))}
-            </div>
-          </div>
         </div>
 
-        {/* Movies Grid */}
-        <div className="col-span-9">
-          <div className="mb-6">
-            <h2 className={`text-2xl font-bold mb-2 ${resolvedTheme === "light" ? "text-gray-900" : "text-white"}`}>
-              Movies ({data?.total_results || 0} results)
-            </h2>
-            <p className={`text-sm ${resolvedTheme === "light" ? "text-gray-600" : "text-gray-400"}`}>
-              Page {page} of {maxPages}
-            </p>
+        <div className="lg:col-span-9">
+          <div className="flex justify-between items-center mb-6">
+            <div>
+              <h2 className={`text-xl font-semibold ${resolvedTheme === "light" ? "text-gray-900" : "text-white"}`}>
+                {data?.total_results ? `${data.total_results.toLocaleString()} Movies Found` : "Movies"}
+              </h2>
+              {data?.total_results && (
+                <p className={`text-sm ${resolvedTheme === "light" ? "text-gray-600" : "text-gray-400"}`}>
+                  Page {page} of {maxPages}
+                </p>
+              )}
+            </div>
           </div>
 
-          <div className="grid grid-cols-4 gap-6 mb-10">
+          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-6 mb-10">
             {!isLoading
               ? data?.results?.map((movie: Movie) => {
-                  let poster = "https://image.tmdb.org/t/p/w500" + movie.poster_path;
-                  let key = movie?.id;
+                  const poster = movie.poster_path ? `https://image.tmdb.org/t/p/w500${movie.poster_path}` : null;
 
                   return (
                     <MoviePoster
-                      key={key}
+                      key={movie.id}
                       poster={poster}
                       id={movie.id}
                       title={movie.title}
@@ -175,124 +136,124 @@ export const ShowMoviesByGenre = ({ genre_id }: Props) => {
                 })
               : Array.from({ length: 8 }).map((_, index) => (
                   <div key={index} className="w-full h-auto flex items-center">
-                    <Skeleton className="w-full h-[400px]" />
+                    <Skeleton className="w-full h-[300px] sm:h-[400px]" />
                   </div>
                 ))}
           </div>
 
-          {/* No Results */}
           {data?.results?.length === 0 && !isLoading && (
-            <p className={`text-center text-lg ${resolvedTheme === "light" ? "text-gray-500" : "text-gray-400"}`}>
-              No movies found for the selected genres
-            </p>
+            <div className={`text-center py-12 ${resolvedTheme === "light" ? "text-gray-500" : "text-gray-400"}`}>
+              <p className="text-lg mb-2">No movies found</p>
+              <p className="text-sm">Try selecting different genres or check back later</p>
+            </div>
           )}
 
-          {/* Pagination */}
-          {data?.results && data.results.length > 0 && (
-            <Pagination>
-              <PaginationContent>
-                {page > 1 && (
-                  <PaginationItem>
-                    <PaginationPrevious
-                      href="#"
-                      onClick={(e) => {
-                        e.preventDefault();
-                        handlePreviousPage();
-                      }}
-                    />
-                  </PaginationItem>
-                )}
+          {data?.results && data.results.length > 0 && maxPages > 1 && (
+            <div className="flex justify-center">
+              <Pagination>
+                <PaginationContent>
+                  {page > 1 && (
+                    <PaginationItem>
+                      <PaginationPrevious
+                        href="#"
+                        onClick={(e) => {
+                          e.preventDefault();
+                          handlePageChange(page - 1);
+                        }}
+                      />
+                    </PaginationItem>
+                  )}
 
-                {/* Show first page if not on first few pages */}
-                {page > 3 && (
-                  <>
+                  {page > 3 && (
+                    <>
+                      <PaginationItem>
+                        <PaginationLink
+                          href="#"
+                          onClick={(e) => {
+                            e.preventDefault();
+                            handlePageChange(1);
+                          }}
+                        >
+                          1
+                        </PaginationLink>
+                      </PaginationItem>
+                      {page > 4 && (
+                        <PaginationItem>
+                          <PaginationEllipsis />
+                        </PaginationItem>
+                      )}
+                    </>
+                  )}
+
+                  {page > 1 && page <= 3 && (
                     <PaginationItem>
                       <PaginationLink
                         href="#"
                         onClick={(e) => {
                           e.preventDefault();
-                          handleNextPage(1);
+                          handlePageChange(page - 1);
                         }}
                       >
-                        1
+                        {page - 1}
                       </PaginationLink>
                     </PaginationItem>
-                    <PaginationItem>
-                      <PaginationEllipsis />
-                    </PaginationItem>
-                  </>
-                )}
+                  )}
 
-                {/* Show previous page */}
-                {page > 1 && (
                   <PaginationItem>
-                    <PaginationLink
-                      href="#"
-                      onClick={(e) => {
-                        e.preventDefault();
-                        handleNextPage(page - 1);
-                      }}
-                    >
-                      {page - 1}
+                    <PaginationLink href="#" isActive>
+                      {page}
                     </PaginationLink>
                   </PaginationItem>
-                )}
 
-                {/* Current page */}
-                <PaginationItem>
-                  <PaginationLink href="#" isActive>
-                    {page}
-                  </PaginationLink>
-                </PaginationItem>
-
-                {/* Show next page */}
-                {page < maxPages && (
-                  <PaginationItem>
-                    <PaginationLink
-                      href="#"
-                      onClick={(e) => {
-                        e.preventDefault();
-                        handleNextPage(page + 1);
-                      }}
-                    >
-                      {page + 1}
-                    </PaginationLink>
-                  </PaginationItem>
-                )}
-
-                {/* Show last page if not on last few pages */}
-                {page < maxPages - 2 && (
-                  <>
-                    <PaginationItem>
-                      <PaginationEllipsis />
-                    </PaginationItem>
+                  {page < maxPages && page >= maxPages - 2 && (
                     <PaginationItem>
                       <PaginationLink
                         href="#"
                         onClick={(e) => {
                           e.preventDefault();
-                          handleNextPage(maxPages);
+                          handlePageChange(page + 1);
                         }}
                       >
-                        {maxPages}
+                        {page + 1}
                       </PaginationLink>
                     </PaginationItem>
-                  </>
-                )}
+                  )}
 
-                {page < maxPages && (
-                  <PaginationItem>
-                    <PaginationNext
-                      href="#"
-                      onClick={(e) => {
-                        e.preventDefault();
-                        handleNextPage();
-                      }}
-                    />
-                  </PaginationItem>
-                )}
-              </PaginationContent>
-            </Pagination>
+                  {page < maxPages - 2 && (
+                    <>
+                      {page < maxPages - 3 && (
+                        <PaginationItem>
+                          <PaginationEllipsis />
+                        </PaginationItem>
+                      )}
+                      <PaginationItem>
+                        <PaginationLink
+                          href="#"
+                          onClick={(e) => {
+                            e.preventDefault();
+                            handlePageChange(maxPages);
+                          }}
+                        >
+                          {maxPages}
+                        </PaginationLink>
+                      </PaginationItem>
+                    </>
+                  )}
+
+                  {page < maxPages && (
+                    <PaginationItem>
+                      <PaginationNext
+                        href="#"
+                        onClick={(e) => {
+                          e.preventDefault();
+                          handlePageChange(page + 1);
+                        }}
+                      />
+                    </PaginationItem>
+                  )}
+                </PaginationContent>
+              </Pagination>
+            </div>
           )}
         </div>
       </div>

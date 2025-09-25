@@ -11,7 +11,6 @@ export const SearchBarForHome = () => {
   const [input, setInput] = useState("");
   const [debouncedInput, setDebouncedInput] = useState("");
   const [open, setOpen] = useState(false);
-  const [selectedIndex, setSelectedIndex] = useState(-1);
 
   const { resolvedTheme } = useTheme();
   const { data, isLoading } = useFetchClientData(
@@ -31,7 +30,6 @@ export const SearchBarForHome = () => {
 
   const handleOnChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setInput(event.target.value);
-    setSelectedIndex(-1);
     setOpen(true);
   };
 
@@ -80,7 +78,7 @@ export const SearchBarForHome = () => {
         >
           <div className="space-y-1">
             {data.results
-              .slice(0, 7)
+              .slice(0, 5)
               .map((movie: { poster_path: string; id: string; title: string; vote_average: number }, index: number) => {
                 const poster = movie.poster_path
                   ? `https://image.tmdb.org/t/p/w200${movie.poster_path}`
@@ -90,20 +88,13 @@ export const SearchBarForHome = () => {
                   <div
                     key={movie.id}
                     className={`flex items-center gap-4 p-3 rounded-lg cursor-pointer transition-colors ${
-                      selectedIndex === index
-                        ? resolvedTheme === "light"
-                          ? "bg-gray-100"
-                          : "bg-gray-700"
-                        : resolvedTheme === "light"
-                        ? "hover:bg-gray-50"
-                        : "hover:bg-gray-700"
+                      resolvedTheme === "light" ? "hover:bg-gray-50" : "hover:bg-gray-700"
                     }`}
                     onClick={() => {
                       handleGotoDetails("detail", movie.id);
                       setOpen(false);
                     }}
                     role="option"
-                    aria-selected={selectedIndex === index}
                   >
                     <img
                       src={poster}
@@ -129,24 +120,15 @@ export const SearchBarForHome = () => {
 
             <div
               className={`p-3 rounded-lg cursor-pointer transition-colors border-t ${
-                selectedIndex === data.results.slice(0, 7).length
-                  ? resolvedTheme === "light"
-                    ? "bg-gray-100"
-                    : "bg-gray-700"
-                  : resolvedTheme === "light"
-                  ? "hover:bg-gray-50 border-gray-200"
-                  : "hover:bg-gray-700 border-gray-600"
+                resolvedTheme === "light" ? "hover:bg-gray-50 border-gray-200" : "hover:bg-gray-700 border-gray-600"
               }`}
               onClick={() => {
                 handleNavigateSearchResult("searched", input);
                 setOpen(false);
               }}
               role="option"
-              aria-selected={selectedIndex === data.results.slice(0, 7).length}
             >
-              <p className={`text-sm font-medium ${resolvedTheme === "light" ? "text-blue-600" : "text-blue-400"}`}>
-                See all results for "{input}"
-              </p>
+              <p className={`text-sm font-medium`}>See all results "{input}"</p>
             </div>
           </div>
         </div>

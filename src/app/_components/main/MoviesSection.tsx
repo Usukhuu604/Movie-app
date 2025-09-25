@@ -20,14 +20,14 @@ export const MoviesSection = ({ label, endpoint }: Props) => {
   if (isLoading) return <Loader />;
 
   return (
-    <div className="h-auto px-20">
+    <div className="h-auto px-4 sm:px-8 md:px-12 lg:px-20">
       <div className="flex justify-between mb-8 ">
-        <p className="text-3xl font-semibold">{label}</p>
+        <p className="text-xl sm:text-2xl md:text-3xl font-semibold">{label}</p>
         <p
-          className="w-[120px] flex justify-around items-center font-medium  cursor-pointer"
+          className="w-auto sm:w-[120px] flex justify-around items-center font-medium  cursor-pointer"
           onClick={() => handleNavigateToSeeMore(getEndpoint)}
         >
-          See more <ArrowRight />
+          <span className="hidden sm:inline">See more</span> <ArrowRight />
         </p>
       </div>
 
@@ -37,7 +37,15 @@ export const MoviesSection = ({ label, endpoint }: Props) => {
             let poster = "https://image.tmdb.org/t/p/original" + movie.poster_path;
             let key = movie?.id;
 
-            return <MoviePoster key={key} poster={poster} id={movie.id} title={movie.title} vote_average={movie.vote_average} />;
+            return (
+              <MoviePoster
+                key={key}
+                poster={poster}
+                id={movie.id}
+                title={movie.title}
+                vote_average={movie.vote_average}
+              />
+            );
           })
         ) : (
           <div className=" w-full h-auto flex items-center">

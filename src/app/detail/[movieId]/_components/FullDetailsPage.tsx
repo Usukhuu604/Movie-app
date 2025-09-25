@@ -18,7 +18,8 @@ export const FulldetailsPage = ({ id }: MovieId) => {
   const getSimilarMovies = useGetDetails(`/movie/${id}/similar?language=en-US`);
   const movieTrailerDetail = useGetDetails(`/movie/${id}/videos?language=en-US`);
 
-  let pageIsLoading: boolean = moreDetail.isLoading && movieCredits.isLoading && getSimilarMovies.isLoading && movieTrailerDetail.isLoading;
+  let pageIsLoading: boolean =
+    moreDetail.isLoading && movieCredits.isLoading && getSimilarMovies.isLoading && movieTrailerDetail.isLoading;
 
   if (pageIsLoading) {
     return (
@@ -29,7 +30,7 @@ export const FulldetailsPage = ({ id }: MovieId) => {
   }
 
   return (
-    <div className="mx-50 my-15 ">
+    <div className="mx-4 sm:mx-8 md:mx-16 lg:mx-32 xl:mx-50 my-8 sm:my-12 md:my-15">
       <DetailTitle
         title={moreDetail.title}
         adult={moreDetail.adult}
@@ -55,7 +56,11 @@ export const FulldetailsPage = ({ id }: MovieId) => {
         directors={movieCredits.directing}
       />
 
-      <MoreLikeThis relatedMovies={getSimilarMovies.relatedMovies} isLoading={getSimilarMovies.isLoading} movieId={id} />
+      <MoreLikeThis
+        relatedMovies={getSimilarMovies.relatedMovies}
+        isLoading={getSimilarMovies.isLoading}
+        movieId={id}
+      />
     </div>
   );
 };

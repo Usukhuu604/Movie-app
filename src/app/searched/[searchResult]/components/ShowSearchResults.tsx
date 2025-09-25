@@ -48,7 +48,7 @@ export const ShowSearchResults = ({ endpoint }: Props) => {
         {data?.total_results && ` (Page ${page} of ${maxPages})`}
       </p>
 
-      <div className="grid grid-cols-4 gap-12 mb-8">
+      <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-6 sm:gap-8 md:gap-12 mb-8">
         {!isLoading
           ? data?.results?.map((movie: { id: string; title: string; poster_path: string; vote_average: number }) => {
               let poster = movie?.poster_path ? `https://image.tmdb.org/t/p/w500${movie?.poster_path}` : null;
@@ -65,7 +65,7 @@ export const ShowSearchResults = ({ endpoint }: Props) => {
             })
           : Array.from({ length: 8 }).map((_, index) => (
               <div key={index} className="w-full h-auto flex items-center">
-                <Skeleton className="w-full h-[400px]" />
+                <Skeleton className="w-full h-[300px] sm:h-[400px]" />
               </div>
             ))}
       </div>

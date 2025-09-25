@@ -11,3 +11,12 @@ export type Movie = {
   vote_count: number;
   genre_ids: number[];
 };
+
+export type Props = {
+  genre_id: string;
+};
+
+export type Genre = {
+  id: string;
+  name: string;
+};
