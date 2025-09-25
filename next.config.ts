@@ -6,6 +6,9 @@ const nextConfig: NextConfig = {
     API_TOKEN: process.env.API_TOKEN,
     TMBD_BASE_URL: process.env.TMBD_BASE_URL,
   },
+  images: {
+    domains: ["image.tmdb.org"],
+  },
 };
 
 export default nextConfig;

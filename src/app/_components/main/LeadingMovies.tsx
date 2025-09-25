@@ -3,7 +3,7 @@
 import { useFetchClientData } from "@/app/_hooks/useFetchDataInClient";
 import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, useCallback } from "react";
 import { WatchTrailer } from "../header/WatchTrailer";
 import Image from "next/image";
 
@@ -50,14 +50,14 @@ export const LeadingMovies = ({ endpoint }: Props) => {
     resetAutoSlide();
   };
 
-  const resetAutoSlide = () => {
+  const resetAutoSlide = useCallback(() => {
     if (autoSlideRef.current) {
       clearInterval(autoSlideRef.current);
     }
     autoSlideRef.current = setInterval(() => {
       nextSlide();
     }, 5000);
-  };
+  }, []);
 
   const handleMouseDown = (e: React.MouseEvent) => {
     setIsDragging(true);
@@ -169,7 +169,7 @@ export const LeadingMovies = ({ endpoint }: Props) => {
             >
               <Image
                 src={leadingMovie}
-                alt={movie.title}
+                alt=""
                 width={1920}
                 height={1080}
                 className="w-full h-full object-cover"

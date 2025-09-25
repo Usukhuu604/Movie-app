@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Play } from "lucide-react";
+import Image from "next/image";
 
 type TrailerProps = {
   title: string;
@@ -21,9 +22,11 @@ export const WatchMovieTrailer = ({
 
   return (
     <div className="flex flex-col lg:flex-row gap-8 h-auto lg:h-[70vh] w-full ">
-      <img
+      <Image
         src={poster_path}
         alt="poster"
+        width={400}
+        height={600}
         className="hidden lg:block rounded-2xl"
       />
 
@@ -45,9 +48,10 @@ export const WatchMovieTrailer = ({
             onClick={handlePlay}
             className="cursor-pointer rounded-2xl bg-black relative h-full w-full  "
           >
-            <img
+            <Image
               src={backdrop_path}
-              alt="bakcdrop"
+              alt="backdrop"
+              fill
               className="opacity-50 h-full w-full rounded-2xl object-cover"
             />
 

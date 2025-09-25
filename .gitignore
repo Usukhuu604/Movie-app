@@ -11,7 +11,7 @@
 !.yarn/versions
 # (Optional) Ignore lockfile – generally NOT recommended because it breaks reproducible installs.
 # Uncomment/keep the next line only if you intentionally do not want to track the Yarn lock file.
-yarn.lock
+package-lock.json
 
 # testing
 /coverage
