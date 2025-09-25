@@ -29,9 +29,9 @@ const ShowMovies = ({ endpoint, section }: ShowMoviesProps) => {
       <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 sm:gap-6 md:gap-8">
         {!isLoading ? (
           data?.results?.map((movie: Movie) => {
-            let poster =
+            const poster =
               "https://image.tmdb.org/t/p/original" + movie.poster_path;
-            let key = movie?.id;
+            const key = movie?.id;
 
             return (
               <MoviePoster

@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
 import { useState, useEffect, useRef } from "react";
 import { WatchTrailer } from "../header/WatchTrailer";
+import Image from "next/image";
 
 type Props = {
   endpoint: string;
@@ -112,7 +113,7 @@ export const LeadingMovies = ({ endpoint }: Props) => {
         clearInterval(autoSlideRef.current);
       }
     };
-  }, [data]);
+  }, [data, resetAutoSlide]);
 
   if (isLoading) {
     return (
@@ -166,10 +167,13 @@ export const LeadingMovies = ({ endpoint }: Props) => {
                 transform: `translateX(${translateX})`,
               }}
             >
-              <img
+              <Image
                 src={leadingMovie}
                 alt={movie.title}
+                width={1920}
+                height={1080}
                 className="w-full h-full object-cover"
+                priority
               />
               <div className="absolute inset-0 bg-black/40"></div>
               <div className="absolute inset-0 flex items-center">

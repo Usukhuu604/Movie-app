@@ -84,70 +84,63 @@ export const SearchBarForHome = ({ theme }: { theme: string }) => {
               ? "bg-white border-gray-300"
               : "bg-gray-800 border-gray-600"
           }`}
-          role="listbox"
         >
           <div className="space-y-1">
-            {data.results
-              .slice(0, 5)
-              .map(
-                (
-                  movie: {
-                    poster_path: string;
-                    id: string;
-                    title: string;
-                    vote_average: number;
-                  },
-                  index: number
-                ) => {
-                  const poster = movie.poster_path
-                    ? `https://image.tmdb.org/t/p/w200${movie.poster_path}`
-                    : "/placeholder-movie.jpg";
+            {data.results.slice(0, 5).map(
+              (
+                movie: {
+                  poster_path: string;
+                  id: string;
+                  title: string;
+                  vote_average: number;
+                },
+                index: number
+              ) => {
+                const poster = movie.poster_path
+                  ? `https://image.tmdb.org/t/p/w200${movie.poster_path}`
+                  : "/placeholder-movie.jpg";
 
-                  return (
-                    <div
-                      key={movie.id}
-                      className={`flex items-center gap-4 p-3 rounded-lg cursor-pointer transition-colors ${
-                        theme === "light"
-                          ? "hover:bg-gray-50"
-                          : "hover:bg-gray-700"
-                      }`}
-                      onClick={() => {
-                        handleGotoDetails("detail", movie.id);
-                        setOpen(false);
+                return (
+                  <div
+                    key={movie.id}
+                    className={`flex items-center gap-4 p-3 rounded-lg cursor-pointer transition-colors ${
+                      theme === "light"
+                        ? "hover:bg-gray-50"
+                        : "hover:bg-gray-700"
+                    }`}
+                    onClick={() => {
+                      handleGotoDetails("detail", movie.id);
+                      setOpen(false);
+                    }}
+                  >
+                    <img
+                      src={poster}
+                      className="w-10 h-14 sm:w-12 sm:h-16 rounded object-cover flex-shrink-0"
+                      onError={(e) => {
+                        (e.target as HTMLImageElement).src =
+                          "/placeholder-movie.jpg";
                       }}
-                      role="option"
-                    >
-                      <img
-                        src={poster}
-                        alt={`${movie.title} poster`}
-                        className="w-10 h-14 sm:w-12 sm:h-16 rounded object-cover flex-shrink-0"
-                        onError={(e) => {
-                          (e.target as HTMLImageElement).src =
-                            "/placeholder-movie.jpg";
-                        }}
-                      />
-                      <div className="flex-1 min-w-0">
-                        <p
-                          className={`font-medium truncate ${
-                            theme === "light" ? "text-gray-900" : "text-white"
-                          }`}
-                        >
-                          {movie.title}
-                        </p>
-                        <p
-                          className={`text-sm ${
-                            theme === "light"
-                              ? "text-gray-500"
-                              : "text-gray-400"
-                          }`}
-                        >
-                          ⭐️ {movie.vote_average?.toFixed(1)}/10
-                        </p>
-                      </div>
+                    />
+                    <div className="flex-1 min-w-0">
+                      <p
+                        className={`font-medium truncate ${
+                          theme === "light" ? "text-gray-900" : "text-white"
+                        }`}
+                      >
+                        {movie.title}
+                      </p>
+                      <p
+                        className={`text-sm ${
+                          theme === "light" ? "text-gray-500" : "text-gray-400"
+                        }`}
+                      >
+                        ⭐️ {movie.vote_average?.toFixed(1)}/10
+                      </p>
                     </div>
-                  );
-                }
-              )}
+                  </div>
+                );
+              }
+            )}
 
             <div
               className={`p-3 rounded-lg cursor-pointer transition-colors border-t ${
@@ -159,9 +152,8 @@ export const SearchBarForHome = ({ theme }: { theme: string }) => {
                 handleNavigateSearchResult("searched", input);
                 setOpen(false);
               }}
-              role="option"
             >
-              <p className={`text-sm font-medium`}>See all results "{input}"</p>
+              <p className={`text-sm font-medium`}>See all results {input}</p>
             </div>
           </div>
         </div>

@@ -16,10 +16,15 @@ export const FulldetailsPage = ({ id }: MovieId) => {
   const moreDetail = useGetDetails(`/movie/${id}?language=en-US`);
   const movieCredits = useGetDetails(`/movie/${id}/credits?language=en-US`);
   const getSimilarMovies = useGetDetails(`/movie/${id}/similar?language=en-US`);
-  const movieTrailerDetail = useGetDetails(`/movie/${id}/videos?language=en-US`);
+  const movieTrailerDetail = useGetDetails(
+    `/movie/${id}/videos?language=en-US`
+  );
 
-  let pageIsLoading: boolean =
-    moreDetail.isLoading && movieCredits.isLoading && getSimilarMovies.isLoading && movieTrailerDetail.isLoading;
+  const pageIsLoading: boolean =
+    moreDetail.isLoading &&
+    movieCredits.isLoading &&
+    getSimilarMovies.isLoading &&
+    movieTrailerDetail.isLoading;
 
   if (pageIsLoading) {
     return (

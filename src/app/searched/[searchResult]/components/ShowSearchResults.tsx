@@ -57,10 +57,10 @@ export const ShowSearchResults = ({ endpoint }: Props) => {
                 poster_path: string;
                 vote_average: number;
               }) => {
-                let poster = movie?.poster_path
+                const poster = movie?.poster_path
                   ? `https://image.tmdb.org/t/p/w500${movie?.poster_path}`
                   : null;
-                let key = movie?.id;
+                const key = movie?.id;
                 return (
                   <MoviePoster
                     key={key}

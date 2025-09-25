@@ -11,7 +11,11 @@ type similarMovies = {
   movieId: string;
 };
 
-export const MoreLikeThis = ({ relatedMovies, isLoading, movieId }: similarMovies) => {
+export const MoreLikeThis = ({
+  relatedMovies,
+  isLoading,
+  movieId,
+}: similarMovies) => {
   const handleGotoMoreLikeThis = useNavigateMoreLikeThis();
 
   return (
@@ -19,7 +23,10 @@ export const MoreLikeThis = ({ relatedMovies, isLoading, movieId }: similarMovie
       <div className="flex justify-between items-center mb-8">
         <p className="text-4xl font-bold">More like this</p>
 
-        <p className="flex text-lg text-gray-700 items-center gap-2 cursor-pointer" onClick={() => handleGotoMoreLikeThis(movieId)}>
+        <p
+          className="flex text-lg text-gray-700 items-center gap-2 cursor-pointer"
+          onClick={() => handleGotoMoreLikeThis(movieId)}
+        >
           See more <ArrowRight />
         </p>
       </div>
@@ -27,8 +34,18 @@ export const MoreLikeThis = ({ relatedMovies, isLoading, movieId }: similarMovie
       <div className="grid grid-cols-5 grod-rows-4 gap-8">
         {!isLoading ? (
           relatedMovies?.slice(0, 5).map((movie: Movie) => {
-            let poster = movie?.poster_path ? `https://image.tmdb.org/t/p/original${movie?.poster_path}` : null;
-            return <MoviePoster key={movie?.id} poster={poster} id={movie?.id} title={movie?.title} vote_average={movie?.vote_average} />;
+            const poster = movie?.poster_path
+              ? `https://image.tmdb.org/t/p/original${movie?.poster_path}`
+              : null;
+            return (
+              <MoviePoster
+                key={movie?.id}
+                poster={poster}
+                id={movie?.id}
+                title={movie?.title}
+                vote_average={movie?.vote_average}
+              />
+            );
           })
         ) : (
           <ShowFullDetailsOfSkeleton />

@@ -19,43 +19,44 @@ export const WatchTrailer = ({
   const [trailerKey, setTrailerKey] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(false);
 
+  type TMDBVideo = {
+    key: string;
+    site: string;
+    type: string;
+  };
+
   useEffect(() => {
     if (isOpen && movieId) {
+      const fetchTrailer = async () => {
+        setIsLoading(true);
+        setTrailerKey(null);
+        try {
+          const response = await axiosInstance.get(
+            `/movie/${movieId}/videos?language=en-US`
+          );
+          const data = response.data;
+          const trailer =
+            data.results?.find(
+              (video: TMDBVideo) =>
+                video.type === "Trailer" && video.site === "YouTube"
+            ) ||
+            data.results?.find(
+              (video: TMDBVideo) =>
+                video.site === "YouTube" &&
+                (video.type === "Teaser" || video.type === "Trailer")
+            );
+          if (trailer) {
+            setTrailerKey(trailer.key);
+          }
+        } catch (error) {
+          console.error("Error fetching trailer:", error);
+        } finally {
+          setIsLoading(false);
+        }
+      };
       fetchTrailer();
     }
   }, [isOpen, movieId]);
-
-  const fetchTrailer = async () => {
-    if (!movieId) return;
-
-    setIsLoading(true);
-    setTrailerKey(null);
-
-    try {
-      const response = await axiosInstance.get(
-        `/movie/${movieId}/videos?language=en-US`
-      );
-      const data = response.data;
-
-      const trailer =
-        data.results?.find(
-          (video: any) => video.type === "Trailer" && video.site === "YouTube"
-        ) ||
-        data.results?.find(
-          (video: any) =>
-            video.site === "YouTube" &&
-            (video.type === "Teaser" || video.type === "Trailer")
-        );
-
-      if (trailer) {
-        setTrailerKey(trailer.key);
-      }
-    } catch (error) {
-      console.error("Error fetching trailer:", error);
-    } finally {
-      setIsLoading(false);
-    }
-  };
 
   const handleClose = () => {
     setTrailerKey(null);

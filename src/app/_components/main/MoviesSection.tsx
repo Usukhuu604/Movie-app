@@ -42,8 +42,9 @@ export const MoviesSection = ({ label, endpoint }: Props) => {
       >
         {!isLoading ? (
           data?.results?.slice(0, 10).map((movie: Movie) => {
-            let poster = "https://image.tmdb.org/t/p/w500" + movie.poster_path;
-            let key = movie?.id;
+            const poster =
+              "https://image.tmdb.org/t/p/w500" + movie.poster_path;
+            const key = movie?.id;
             return (
               <MoviePoster
                 key={key}
