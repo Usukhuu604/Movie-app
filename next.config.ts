@@ -7,7 +7,14 @@ const nextConfig: NextConfig = {
     TMBD_BASE_URL: process.env.TMBD_BASE_URL,
   },
   images: {
-    domains: ["image.tmdb.org"],
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "image.tmdb.org",
+        port: "",
+        pathname: "/**",
+      },
+    ],
   },
 };
 

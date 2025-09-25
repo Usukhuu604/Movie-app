@@ -1,9 +1,9 @@
 import { FulldetailsPage } from "./_components/FullDetailsPage";
 
 type DetailPageParams = {
-  params: {
+  params: Promise<{
     movieId: string;
-  };
+  }>;
 };
 
 const DetailPage = async ({ params }: DetailPageParams) => {

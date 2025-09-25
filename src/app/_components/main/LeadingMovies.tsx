@@ -14,13 +14,9 @@ type Props = {
 export const LeadingMovies = ({ endpoint }: Props) => {
   const { data, isLoading } = useFetchClientData(endpoint);
   const [currentSlide, setCurrentSlide] = useState(0);
-  const [isDragging, setIsDragging] = useState(false);
-  const [dragStart, setDragStart] = useState(0);
-  const [dragOffset, setDragOffset] = useState(0);
   const [showTrailer, setShowTrailer] = useState(false);
   const [selectedMovieId, setSelectedMovieId] = useState<number | null>(null);
   const [selectedMovieTitle, setSelectedMovieTitle] = useState<string>("");
-  const containerRef = useRef<HTMLDivElement>(null);
   const autoSlideRef = useRef<NodeJS.Timeout | null>(null);
 
   const handleWatchTrailer = (movieId: number, movieTitle: string) => {
@@ -39,11 +35,11 @@ export const LeadingMovies = ({ endpoint }: Props) => {
     resetAutoSlide();
   };
 
-  const nextSlide = () => {
+  const nextSlide = useCallback(() => {
     if (data?.results) {
       setCurrentSlide((prev) => (prev + 1) % Math.min(data.results.length, 5));
     }
-  };
+  }, [data?.results]);
 
   const goToSlide = (index: number) => {
     setCurrentSlide(index);
@@ -58,53 +54,6 @@ export const LeadingMovies = ({ endpoint }: Props) => {
       nextSlide();
     }, 5000);
   }, [nextSlide]);
-
-  const handleMouseDown = (e: React.MouseEvent) => {
-    setIsDragging(true);
-    setDragStart(e.clientX);
-    if (autoSlideRef.current) {
-      clearInterval(autoSlideRef.current);
-    }
-  };
-
-  const handleTouchStart = (e: React.TouchEvent) => {
-    setIsDragging(true);
-    setDragStart(e.touches[0].clientX);
-    if (autoSlideRef.current) {
-      clearInterval(autoSlideRef.current);
-    }
-  };
-
-  const handleMouseMove = (e: React.MouseEvent) => {
-    if (!isDragging) return;
-    const currentX = e.clientX;
-    setDragOffset(currentX - dragStart);
-  };
-
-  const handleTouchMove = (e: React.TouchEvent) => {
-    if (!isDragging) return;
-    const currentX = e.touches[0].clientX;
-    setDragOffset(currentX - dragStart);
-  };
-
-  const handleDragEnd = () => {
-    if (!isDragging) return;
-    setIsDragging(false);
-
-    const threshold = 100;
-    const movies = data?.results?.slice(0, 5) || [];
-
-    if (Math.abs(dragOffset) > threshold) {
-      if (dragOffset > 0) {
-        setCurrentSlide((prev) => (prev - 1 + movies.length) % movies.length);
-      } else {
-        setCurrentSlide((prev) => (prev + 1) % movies.length);
-      }
-    }
-
-    setDragOffset(0);
-    resetAutoSlide();
-  };
 
   useEffect(() => {
     resetAutoSlide();
@@ -133,36 +82,17 @@ export const LeadingMovies = ({ endpoint }: Props) => {
 
   return (
     <section className="relative w-full overflow-hidden">
-      <div
-        ref={containerRef}
-        className="relative w-full h-[300px] sm:h-[400px] md:h-[500px] lg:h-[600px] cursor-grab active:cursor-grabbing select-none"
-        onMouseDown={handleMouseDown}
-        onMouseMove={handleMouseMove}
-        onMouseUp={handleDragEnd}
-        onMouseLeave={handleDragEnd}
-        onTouchStart={handleTouchStart}
-        onTouchMove={handleTouchMove}
-        onTouchEnd={handleDragEnd}
-      >
+      <div className="relative w-full h-[300px] sm:h-[400px] md:h-[500px] lg:h-[600px]">
         {movies.map((movie: Movie, index: number) => {
           const leadingMovie =
             "https://image.tmdb.org/t/p/original" + movie.backdrop_path;
 
-          const translateX = isDragging
-            ? `${
-                (index - currentSlide) * 100 +
-                (dragOffset / (containerRef.current?.offsetWidth || 1)) * 100
-              }%`
-            : `${(index - currentSlide) * 100}%`;
+          const translateX = `${(index - currentSlide) * 100}%`;
 
           return (
             <div
               key={index}
-              className={`absolute inset-0 ${
-                isDragging
-                  ? ""
-                  : "transition-transform duration-500 ease-in-out"
-              }`}
+              className="absolute inset-0 transition-transform duration-500 ease-in-out"
               style={{
                 transform: `translateX(${translateX})`,
               }}
