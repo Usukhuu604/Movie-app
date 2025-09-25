@@ -2,7 +2,7 @@ import { ShowSearchResults } from "./components/ShowSearchResults";
 import { GenreSuggestions } from "./components/GenreSuggestions";
 
 type SearchProps = {
-  params: { searchResult: string };
+  params: Promise<{ searchResult: string }>;
 };
 
 const SearchResultPage = async ({ params }: SearchProps) => {
