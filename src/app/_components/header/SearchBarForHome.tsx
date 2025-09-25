@@ -5,14 +5,17 @@ import { Search, Loader2 } from "lucide-react";
 import { useState, useEffect } from "react";
 import { useFetchClientData } from "@/app/_hooks/useFetchDataInClient";
 import { useNavigateToPages } from "@/app/_hooks/useNavigateToPages";
-import { useTheme } from "next-themes";
 
-export const SearchBarForHome = () => {
+export const SearchBarForHome = ({ theme }: { theme: string }) => {
   const [input, setInput] = useState("");
   const [debouncedInput, setDebouncedInput] = useState("");
   const [open, setOpen] = useState(false);
+  const [isMounted, setIsMounted] = useState(false);
 
-  const { resolvedTheme } = useTheme();
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
+
   const { data, isLoading } = useFetchClientData(
     debouncedInput ? `/search/movie?query=${debouncedInput}&language=en-US&page=1` : ""
   );
@@ -32,7 +35,9 @@ export const SearchBarForHome = () => {
     setInput(event.target.value);
     setOpen(true);
   };
-
+  if (!isMounted) {
+    return null;
+  }
   return (
     <div className="relative">
       <div className="relative w-full">
@@ -40,15 +45,12 @@ export const SearchBarForHome = () => {
           type="text"
           placeholder="Search movies..."
           className={`w-[350px] pr-12 ${
-            resolvedTheme === "light"
-              ? "bg-white border-gray-300 text-gray-900"
-              : "bg-gray-800 border-gray-600 text-white"
+            theme === "light" ? "bg-white border-gray-300 text-gray-900" : "bg-gray-800 border-gray-600 text-white"
           }`}
           onChange={handleOnChange}
           value={input}
           onFocus={() => input && setOpen(true)}
           onBlur={() => setTimeout(() => setOpen(false), 200)}
-          aria-label="Search movies"
           aria-expanded={open}
           aria-haspopup="listbox"
         />
@@ -57,7 +59,7 @@ export const SearchBarForHome = () => {
             <Loader2 className="w-5 h-5 mr-3 animate-spin text-gray-500" />
           ) : (
             <Search
-              className={`w-5 h-5 mr-3 cursor-pointer ${resolvedTheme === "light" ? "text-gray-600" : "text-gray-400"}`}
+              className={`w-5 h-5 mr-3 cursor-pointer ${theme === "light" ? "text-gray-600" : "text-gray-400"}`}
               onClick={() => {
                 if (input.length !== 0) {
                   handleNavigateSearchResult("searched", input);
@@ -72,7 +74,7 @@ export const SearchBarForHome = () => {
       {open && input && data?.results && (
         <div
           className={`absolute z-50 w-full max-w-[500px] mt-2 p-4 rounded-lg shadow-lg border ${
-            resolvedTheme === "light" ? "bg-white border-gray-300" : "bg-gray-800 border-gray-600"
+            theme === "light" ? "bg-white border-gray-300" : "bg-gray-800 border-gray-600"
           }`}
           role="listbox"
         >
@@ -88,7 +90,7 @@ export const SearchBarForHome = () => {
                   <div
                     key={movie.id}
                     className={`flex items-center gap-4 p-3 rounded-lg cursor-pointer transition-colors ${
-                      resolvedTheme === "light" ? "hover:bg-gray-50" : "hover:bg-gray-700"
+                      theme === "light" ? "hover:bg-gray-50" : "hover:bg-gray-700"
                     }`}
                     onClick={() => {
                       handleGotoDetails("detail", movie.id);
@@ -105,12 +107,10 @@ export const SearchBarForHome = () => {
                       }}
                     />
                     <div className="flex-1 min-w-0">
-                      <p
-                        className={`font-medium truncate ${resolvedTheme === "light" ? "text-gray-900" : "text-white"}`}
-                      >
+                      <p className={`font-medium truncate ${theme === "light" ? "text-gray-900" : "text-white"}`}>
                         {movie.title}
                       </p>
-                      <p className={`text-sm ${resolvedTheme === "light" ? "text-gray-500" : "text-gray-400"}`}>
+                      <p className={`text-sm ${theme === "light" ? "text-gray-500" : "text-gray-400"}`}>
                         ⭐️ {movie.vote_average?.toFixed(1)}/10
                       </p>
                     </div>
@@ -120,7 +120,7 @@ export const SearchBarForHome = () => {
 
             <div
               className={`p-3 rounded-lg cursor-pointer transition-colors border-t ${
-                resolvedTheme === "light" ? "hover:bg-gray-50 border-gray-200" : "hover:bg-gray-700 border-gray-600"
+                theme === "light" ? "hover:bg-gray-50 border-gray-200" : "hover:bg-gray-700 border-gray-600"
               }`}
               onClick={() => {
                 handleNavigateSearchResult("searched", input);

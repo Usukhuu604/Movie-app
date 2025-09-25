@@ -28,7 +28,7 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
-        <MovieAppThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
+        <MovieAppThemeProvider attribute="class" defaultTheme="light" enableSystem disableTransitionOnChange>
           <HeaderContent />
           {children}
           <FooterContent />

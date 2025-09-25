@@ -30,16 +30,16 @@ export const FooterContent = () => {
           <div className="text-center md:text-left">
             <h3 className="font-semibold text-lg mb-4">Follow Us</h3>
             <div className="flex justify-center md:justify-start gap-4">
-              <a href="#" className="hover:opacity-75 transition-opacity" aria-label="Website">
+              <a href="#" className="hover:opacity-75 transition-opacity">
                 Facebook
               </a>
-              <a href="#" className="hover:opacity-75 transition-opacity" aria-label="Instagram">
+              <a href="#" className="hover:opacity-75 transition-opacity">
                 Instagram
               </a>
-              <a href="#" className="hover:opacity-75 transition-opacity" aria-label="Twitter">
+              <a href="#" className="hover:opacity-75 transition-opacity">
                 Twitter
               </a>
-              <a href="#" className="hover:opacity-75 transition-opacity" aria-label="YouTube">
+              <a href="#" className="hover:opacity-75 transition-opacity">
                 Youtube
               </a>
             </div>

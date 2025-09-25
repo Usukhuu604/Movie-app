@@ -13,11 +13,10 @@ import { Button } from "@/components/ui/button";
 import { useFetchClientData } from "@/app/_hooks/useFetchDataInClient";
 import { Skeleton } from "@/components/ui/skeleton";
 import { useNavigateToPages } from "@/app/_hooks/useNavigateToPages";
-import { useTheme } from "next-themes";
 
-export const Genre = () => {
+export const Genre = ({ theme }: { theme: string }) => {
   const { data, isLoading } = useFetchClientData("/genre/movie/list?language=en");
-  const { resolvedTheme } = useTheme();
+  const resolvedTheme = theme;
 
   type GenreType = {
     id: number;
